@@ -1,0 +1,959 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Las Vegas Grand Prix 2026 race week: fan zones, driver appearances, pop-ups, a Strip map, the race schedule and vegetarian food, all in one phone-friendly page.">
+<meta name="theme-color" content="#000000">
+<title>LVGP Race Week Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Monoton&family=Pinyon+Script&family=Yellowtail&family=Cinzel:wght@500;700&family=Josefin+Sans:ital,wght@0,300;0,600;1,300&family=Oswald:wght@500;700&family=Zilla+Slab:wght@600;700&family=Caveat:wght@600;700&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Layout: a walk down the Strip at night. Pure black ground, a "Welcome to Fabulous" marquee hero,
+   and every section headed like a different hotel sign (Cosmopolitan, Bellagio, New York-New York,
+   Luxor, Beau Rivage). Neon palette from the Paris / Planet Hollywood strip: purple, red, blue, orange. */
+:root{
+  color-scheme: dark;
+  --black:#000;
+  --panel:#0b0b0e;
+  --panel-2:#131318;
+  --line:#25252d;
+  --fg:#f3efe6;
+  --mute:#8e8a97;
+  --purple:#7b3fb0;
+  --red:#ff3b30;
+  --blue:#3157ff;
+  --orange:#ffa53a;
+  --bulb:#ffe2a0;
+  --sign:#f4e7c6;
+  --paper:#efece4; --paper-ink:#1d1b19; --paper-mute:#6d675e;
+  --f-neon:"Monoton", "Oswald", Impact, sans-serif;            /* tube-light lettering */
+  --f-script:"Pinyon Script", "Snell Roundhand", cursive;      /* Bellagio / Aria */
+  --f-brush:"Yellowtail", "Brush Script MT", cursive;          /* Beau Rivage / Borgata / Fabulous */
+  --f-roman:"Cinzel", "Trajan Pro", Georgia, serif;            /* Luxor / Excalibur */
+  --f-geo:"Josefin Sans", "Futura", "Century Gothic", sans-serif; /* The Cosmopolitan / Park MGM */
+  --f-cond:"Oswald", "Arial Narrow", Impact, sans-serif;       /* New York-New York */
+  --f-index:"Zilla Slab", Rockwell, serif;                     /* playing-card index */
+  --f-hand:"Caveat", "Bradley Hand", cursive;
+  --f-body:"Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --noise:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .25 0 0 0 0 .23 0 0 0 0 .2 0 0 0 .32 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+*{box-sizing:border-box}
+html{scroll-behavior:auto}
+body{background:var(--black);color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.5;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--black)}
+.wrap{max-width:1140px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{margin:0;font-weight:400;text-wrap:balance}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+.skel{display:inline-block;background:currentColor;opacity:.18;border-radius:3px;height:.7em;vertical-align:middle}
+.glow-red{color:var(--red);text-shadow:0 0 6px rgba(255,59,48,.8),0 0 22px rgba(255,59,48,.45)}
+.glow-blue{color:#8ea2ff;text-shadow:0 0 6px rgba(49,87,255,.95),0 0 24px rgba(49,87,255,.6)}
+.glow-orange{color:var(--orange);text-shadow:0 0 6px rgba(255,165,58,.85),0 0 22px rgba(255,165,58,.45)}
+.glow-purple{color:#c99bff;text-shadow:0 0 6px rgba(123,63,176,.95),0 0 24px rgba(123,63,176,.6)}
+
+/* ---------- Hero: welcome-sign marquee ---------- */
+.hero{position:relative;padding-block:36px 26px;display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center}
+.sign{position:relative;max-width:640px;border-radius:46% 46% 40% 40% / 30% 30% 22% 22%;padding:16px;
+  background:radial-gradient(circle,var(--bulb) 0 2.6px,rgba(255,226,160,.25) 3.5px,transparent 4.5px) 0 0/19px 19px,#2a0f08;
+  box-shadow:0 0 40px rgba(255,165,58,.25),0 0 120px rgba(255,59,48,.15)}
+.sign-inner{border-radius:44% 44% 38% 38% / 28% 28% 20% 20%;background:var(--noise),var(--sign);color:#b8241d;text-align:center;padding:26px 24px 30px;display:grid;gap:2px;justify-items:center}
+.bulbs{display:flex;gap:6px;margin-bottom:6px}
+.bulbs span{width:34px;height:34px;border-radius:50%;background:#c42a20;color:var(--sign);display:grid;place-items:center;font-family:var(--f-cond);font-weight:700;font-size:18px;box-shadow:inset 0 0 0 3px #f4e7c6,0 0 0 2px #c42a20}
+.sign .to{font-family:var(--f-geo);font-weight:600;letter-spacing:.32em;font-size:12px;color:#1d1b19}
+.sign .fab{font-family:var(--f-brush);font-size:clamp(34px,7vw,52px);line-height:.9;color:#1d1b19;transform:rotate(-4deg)}
+.sign h1{font-family:var(--f-cond);font-weight:700;font-size:clamp(44px,10vw,86px);line-height:.95;letter-spacing:.01em;color:#c42a20}
+.sign .nv{font-family:var(--f-geo);font-weight:600;letter-spacing:.42em;font-size:12px;color:#1d1b19;margin-top:4px}
+.sign .draft{font-family:var(--f-hand);font-size:18px;color:#6d675e;margin-top:6px}
+.tower{font-family:var(--f-neon);font-size:44px;line-height:1.02;display:flex;flex-direction:column;align-items:center;padding:14px 12px;border:2px solid rgba(49,87,255,.5);border-radius:10px;box-shadow:0 0 18px rgba(49,87,255,.35),inset 0 0 18px rgba(49,87,255,.2)}
+.tower span:nth-child(n+4){color:var(--red);text-shadow:0 0 6px rgba(255,59,48,.8),0 0 22px rgba(255,59,48,.45)}
+.deco{position:absolute;pointer-events:none}
+.die{width:46px;height:46px;border-radius:10px;background:linear-gradient(145deg,#ff5a4a,#b5160d);box-shadow:inset -4px -4px 8px rgba(0,0,0,.35),0 8px 18px rgba(0,0,0,.6);display:grid;grid-template-columns:repeat(3,1fr);padding:7px;gap:2px}
+.die i{width:7px;height:7px;border-radius:50%;background:#fff;align-self:center;justify-self:center;opacity:0}
+.die.d5 i:nth-child(1),.die.d5 i:nth-child(3),.die.d5 i:nth-child(5),.die.d5 i:nth-child(7),.die.d5 i:nth-child(9){opacity:1}
+.die.d3 i:nth-child(1),.die.d3 i:nth-child(5),.die.d3 i:nth-child(9){opacity:1}
+.deco.d-a{top:18px;left:-6px;transform:rotate(-18deg)}
+.deco.d-b{top:62px;left:34px;transform:rotate(14deg) scale(.8)}
+.stripes{display:grid;grid-template-columns:repeat(5,1fr);height:10px;border-radius:999px;overflow:hidden;margin-top:6px}
+.stripes i:nth-child(1){background:#16121d}.stripes i:nth-child(2){background:var(--purple)}.stripes i:nth-child(3){background:var(--red)}.stripes i:nth-child(4){background:var(--blue)}.stripes i:nth-child(5){background:var(--orange)}
+
+/* ---------- Nav: marquee strip ---------- */
+nav.strip{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:rgba(0,0,0,.88);backdrop-filter:blur(8px);
+  border-block:1px solid #1d1d24}
+nav.strip .wrap{display:flex;gap:4px;overflow-x:auto;padding-block:8px;scrollbar-width:none}
+nav.strip a{flex:none;text-decoration:none;color:var(--fg);font-family:var(--f-geo);font-weight:600;font-size:12px;letter-spacing:.18em;text-transform:uppercase;padding:8px 12px;border-radius:8px;display:flex;gap:7px;align-items:center}
+nav.strip a:hover{background:#15151b}
+nav.strip a i{width:7px;height:7px;border-radius:50%;background:var(--c);box-shadow:0 0 8px var(--c)}
+
+section{padding-block:56px 6px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px}
+
+/* ---------- Hotel-sign headers ---------- */
+.hs{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:22px}
+.hs .hint{margin:0;color:var(--mute);font-size:13px;max-width:34ch}
+.h-cosmo h2{font-family:var(--f-geo);font-weight:300;font-size:clamp(28px,5vw,40px);letter-spacing:.2em;text-transform:uppercase}
+.h-cosmo .sub{font-family:var(--f-geo);font-style:italic;font-weight:300;font-size:14px;letter-spacing:.14em;text-align:center;color:var(--mute)}
+.h-bellagio h2{font-family:var(--f-script);font-size:clamp(52px,9vw,78px);line-height:.9}
+.h-bellagio .sub{font-family:var(--f-roman);font-size:11px;letter-spacing:.9em;color:var(--mute);margin-top:4px;padding-left:.9em}
+.h-nyny h2{font-family:var(--f-cond);font-weight:700;font-size:clamp(34px,6vw,50px);line-height:.92;text-transform:uppercase;letter-spacing:-.01em}
+.h-nyny h2 .o{display:block;color:transparent;-webkit-text-stroke:1.2px var(--fg)}
+.h-nyny .sub{font-family:var(--f-cond);font-weight:500;font-size:11px;letter-spacing:.12em;color:var(--mute);text-transform:uppercase}
+.h-luxor h2{font-family:var(--f-roman);font-weight:700;font-size:clamp(34px,6vw,52px);letter-spacing:.14em}
+.h-luxor .sub{font-family:var(--f-roman);font-size:11px;letter-spacing:.8em;color:var(--mute);text-align:center;padding-left:.8em}
+.h-beau h2{font-family:var(--f-brush);font-size:clamp(44px,8vw,64px);line-height:.95;transform:rotate(-3deg);transform-origin:left bottom}
+.h-beau .sub{font-family:var(--f-geo);font-weight:600;font-size:11px;letter-spacing:.24em;color:var(--mute);text-transform:uppercase;margin-top:6px}
+
+/* ---------- To-do with dice ---------- */
+.btn{background:var(--red);border:0;border-radius:10px;padding:10px 16px;font-weight:600;color:#fff;box-shadow:0 0 16px rgba(255,59,48,.35)}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--fg);box-shadow:none}
+.btn.blue{background:var(--blue);box-shadow:0 0 16px rgba(49,87,255,.45)}
+
+/* ---------- The deck ---------- */
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:12px;color:var(--mute);margin-bottom:6px;font-family:var(--f-geo);letter-spacing:.08em;text-transform:uppercase}
+.legend b{font-size:15px;margin-right:5px}
+.day-label{display:flex;align-items:baseline;gap:12px;margin:34px 0 14px}
+.day-label .dow{font-family:var(--f-neon);font-size:30px;line-height:1}
+.day-label .date{font-family:var(--f-geo);font-weight:600;font-size:12px;letter-spacing:.24em;color:var(--mute)}
+.deck{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:22px 18px;padding-inline:4px}
+.card{position:relative;aspect-ratio:5/7;max-width:100%;border:0;padding:0;text-align:left;border-radius:12px;color:var(--paper-ink);
+  background:var(--noise),repeating-linear-gradient(135deg,rgba(0,0,0,.035) 0 1px,transparent 1px 3px),var(--paper);
+  box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 10px 22px rgba(0,0,0,.8);transition:transform .25s,box-shadow .25s;cursor:pointer}
+.deck .card:nth-child(3n+1){transform:rotate(-2.2deg)}
+.deck .card:nth-child(3n+2){transform:rotate(1.4deg) translateY(6px)}
+.deck .card:nth-child(3n){transform:rotate(-.6deg)}
+.deck .card:hover{transform:rotate(0) translateY(-6px);box-shadow:0 0 0 1px rgba(255,165,58,.6),0 0 26px rgba(255,165,58,.35),0 14px 28px rgba(0,0,0,.8)}
+.card .idx{position:absolute;top:10px;left:11px;display:flex;flex-direction:column;align-items:flex-start;line-height:1}
+.card .idx .row{display:flex;align-items:baseline;gap:3px}
+.card .hr{font-family:var(--f-index);font-weight:700;font-size:34px}
+.card .mins{font-family:var(--f-hand);font-weight:700;font-size:17px;color:var(--paper-ink);white-space:nowrap;line-height:.95}
+.card .mins em{display:block;font-style:normal;font-size:.8em;color:var(--paper-mute)}
+.card .pip{font-size:22px;margin-top:2px}
+.card .idx.flip{top:auto;left:auto;bottom:10px;right:11px;transform:rotate(180deg)}
+.card .center{position:absolute;inset:14% 0 44% 0;display:grid;place-items:center;font-size:46px;pointer-events:none}
+.card .ttl{position:absolute;left:14px;right:34px;bottom:30px;font-family:var(--f-hand);font-size:19px;line-height:1.05;transform:rotate(-4deg)}
+.card .ttl small{display:block;font-family:var(--f-body);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--paper-mute);margin-top:4px}
+.red{color:#c9342c} .ink{color:var(--paper-ink)}
+.cal-btn{position:absolute;top:8px;right:8px;width:34px;height:34px;border-radius:9px;border:1px solid rgba(0,0,0,.18);background:rgba(255,255,255,.55);display:grid;place-items:center;color:var(--paper-ink)}
+.cal-btn.on{background:#c9342c;color:#fff;border-color:#c9342c}
+.cal-btn svg{width:18px;height:18px}
+
+/* ---------- Modal + flip ---------- */
+.overlay{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.82);display:grid;place-items:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.flipper{width:min(360px,100%);aspect-ratio:5/7;perspective:1400px}
+.flip-inner{position:relative;width:100%;height:100%;transition:transform .75s cubic-bezier(.3,.7,.2,1);transform-style:preserve-3d}
+.flip-inner.turned{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.face .card{width:100%;height:100%;box-shadow:0 0 40px rgba(255,165,58,.25),0 20px 40px rgba(0,0,0,.8)}
+.face.front .card{pointer-events:none}
+.face.front .card .hr{font-size:52px} .face.front .card .mins{font-size:24px} .face.front .card .pip{font-size:30px}
+.face.front .card .center{font-size:80px} .face.front .card .ttl{font-size:30px;bottom:48px}
+.face.back{transform:rotateY(180deg)}
+.face.back .card{padding:20px 20px 16px;display:flex;flex-direction:column;gap:10px;overflow:auto;cursor:default}
+.back-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.back-top h3{font-family:var(--f-hand);font-size:32px;line-height:1;transform:rotate(-2deg);font-weight:700}
+.back-top .tag{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--paper-mute);margin-top:6px}
+dl.logi{margin:0;display:grid;grid-template-columns:auto 1fr;gap:7px 12px;font-size:14px}
+dl.logi dt{font-size:10px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--paper-mute);padding-top:3px}
+dl.logi dd{margin:0;min-width:0}
+.back-actions{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap}
+.back-actions .btn{box-shadow:none}
+.back-actions .btn.ghost{color:var(--paper-ink);border-color:rgba(0,0,0,.2)}
+.src{font-size:13px;color:#c9342c;font-weight:600}
+.close-x{position:absolute;top:calc(12px + env(safe-area-inset-top,0px));right:calc(12px + env(safe-area-inset-right,0px));width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--panel-2);font-size:20px}
+.conf{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:999px;border:1px solid currentColor}
+
+/* ---------- Calendars ---------- */
+.daytabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.daytabs button{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:8px 13px;font-family:var(--f-cond);font-weight:500;font-size:14px;letter-spacing:.06em;text-transform:uppercase}
+.daytabs button[aria-selected=true]{background:var(--fg);color:var(--black);border-color:var(--fg)}
+.cals{display:grid;grid-template-columns:44px 1fr 1fr;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--panel)}
+.cal-h{padding:11px 12px;font-family:var(--f-geo);font-weight:600;font-size:12px;letter-spacing:.2em;text-transform:uppercase;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px;min-width:0}
+.cal-h .dot{width:9px;height:9px;border-radius:50%;flex:none;background:var(--c);box-shadow:0 0 10px var(--c)}
+.cal-scroll{grid-column:1/-1;display:grid;grid-template-columns:44px 1fr 1fr;max-height:560px;overflow-y:auto}
+.axis,.col{position:relative;height:calc(var(--hours) * 44px)}
+.col{border-left:1px solid var(--line);background:repeating-linear-gradient(to bottom,transparent 0 43px,#1a1a20 43px 44px)}
+.col.mono{background-color:rgba(49,87,255,.05)}
+.axis span{position:absolute;right:6px;font-size:10px;color:var(--mute);transform:translateY(-50%);font-variant-numeric:tabular-nums}
+.blk{position:absolute;left:4px;right:4px;border-radius:8px;padding:5px 8px;font-size:12px;line-height:1.25;overflow:hidden;color:#fff;background:var(--red);box-shadow:0 0 14px rgba(255,59,48,.45)}
+.blk b{display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.blk.race{background:var(--orange);color:#2a1700;box-shadow:0 0 14px rgba(255,165,58,.5)}
+.blk.mono{background:var(--blue);box-shadow:0 0 14px rgba(49,87,255,.6)}
+.blk .x{position:absolute;top:2px;right:4px;font-size:13px;opacity:.8;background:none;border:0;padding:2px}
+.cal-empty{position:absolute;top:16px;left:8px;right:8px;font-size:12px;color:var(--mute);text-align:center}
+
+/* ---------- Monorail ---------- */
+.mono-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:16px;align-items:start}
+.steps{margin:0;padding:0;list-style:none;display:grid;gap:14px;counter-reset:s}
+.steps li{display:grid;grid-template-columns:30px 1fr;gap:12px;counter-increment:s}
+.steps li::before{content:counter(s);width:30px;height:30px;border-radius:50%;display:grid;place-items:center;border:1.5px solid var(--blue);color:#8ea2ff;font-family:var(--f-roman);font-weight:700;font-size:14px;box-shadow:0 0 10px rgba(49,87,255,.5)}
+.steps b{display:block;font-family:var(--f-geo);font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-size:13px}
+.steps span{color:var(--mute);font-size:13px}
+.tickets{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px}
+.ticket{position:relative;border:0;text-align:left;border-radius:10px;padding:16px 56px 16px 24px;min-height:100px;background:var(--noise),linear-gradient(135deg,#3a5bff,#1f2fb8);color:#fff;
+  -webkit-mask:radial-gradient(circle 9px at 0 50%,transparent 98%,#000);mask:radial-gradient(circle 9px at 0 50%,transparent 98%,#000);transition:transform .2s}
+.ticket:hover{transform:translateY(-3px)}
+.ticket::after{content:"";position:absolute;right:46px;top:10px;bottom:10px;border-left:2px dashed rgba(255,255,255,.35)}
+.ticket .t-kicker{font-family:var(--f-geo);font-weight:600;font-size:10px;letter-spacing:.3em;opacity:.75;display:block}
+.ticket .t-name{font-family:var(--f-roman);font-size:19px;font-weight:700;display:block;letter-spacing:.04em}
+.ticket .t-sub{font-size:12px;opacity:.8}
+.ticket .t-price{position:absolute;right:6px;width:36px;text-align:center;top:50%;transform:translateY(-50%) rotate(90deg);font-family:var(--f-roman);font-weight:700;font-size:14px}
+.pop{width:min(460px,100%);background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px;display:grid;gap:14px;max-height:100%;overflow:auto;box-shadow:0 0 50px rgba(49,87,255,.18)}
+.pop h3{font-family:var(--f-roman);font-weight:700;font-size:24px;letter-spacing:.04em}
+.pop .kick{font-family:var(--f-geo);font-weight:600;font-size:11px;letter-spacing:.24em;text-transform:uppercase}
+.pop .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pop label{display:grid;gap:4px;font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--mute)}
+.pop select,.pop input{background:var(--black);color:var(--fg);border:1px solid var(--line);border-radius:9px;padding:9px 10px;font:inherit;text-transform:none;letter-spacing:0;font-weight:400;min-width:0}
+.pop dl.logi dt{color:var(--mute)}
+
+/* ---------- Food ---------- */
+.food{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:14px}
+.tile{border:1px solid var(--line);background:var(--panel);border-radius:24px;padding:10px 10px 14px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;aspect-ratio:1/1.12;transition:border-color .2s,box-shadow .2s}
+.tile:hover{border-color:var(--c);box-shadow:0 0 22px color-mix(in srgb,var(--c) 40%,transparent)}
+.tile .hotel{align-self:stretch;font-family:var(--f-geo);font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;border-radius:999px;padding:5px 6px;background:var(--c);color:#fff}
+.tile svg{width:54%;height:auto;flex:1}
+.tile .dish{font-size:12px;color:var(--mute);line-height:1.25}
+.veg{font-family:var(--f-geo);font-size:10px;color:#7fd18b;font-weight:600;letter-spacing:.18em}
+
+footer{padding-block:60px 40px;color:var(--mute);font-size:12px;display:grid;gap:14px}
+footer .bye{font-family:var(--f-script);font-size:34px;color:var(--fg)}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--black);padding:10px 16px;border-radius:999px;font-size:13px;font-weight:600;z-index:60;box-shadow:0 0 24px rgba(255,165,58,.4)}
+
+.conf{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px;white-space:nowrap}
+.conf-high{background:#2f8f4e;color:#fff}.conf-medium{background:#d98a1c;color:#fff}.conf-low{background:#c9342c;color:#fff}
+.cdot{position:absolute;bottom:12px;left:12px;width:10px;height:10px;border-radius:50%}
+.heads{background:rgba(201,52,44,.09);border-left:3px solid #c9342c;border-radius:6px;padding:8px 10px;font-size:13px;line-height:1.4}
+.heads b{display:block;font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#c9342c;margin-bottom:2px}
+.srcs{display:flex;flex-direction:column;gap:3px}
+.ticket.pick{box-shadow:0 0 0 2px var(--orange)}
+.tile .dish b{color:var(--fg);font-weight:600}
+.ckey{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+@media (max-width:760px){
+  .hero{grid-template-columns:1fr}
+  .tower{flex-direction:row;font-size:24px;justify-content:center;gap:2px}
+  .deco{display:none}
+  .mono-grid{grid-template-columns:1fr}
+  .deck{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 14px}
+  .card .hr{font-size:28px}.card .mins{font-size:15px}.card .center{font-size:38px}.card .ttl{font-size:16px;bottom:26px}
+  .cals,.cal-scroll{grid-template-columns:36px 1fr 1fr}
+  .bulbs span{width:28px;height:28px;font-size:15px}
+}
+
+/* ---------- v4: lanes, all-day row, map, race blocks ---------- */
+.blk{border:1px solid rgba(0,0,0,.35);text-align:left}
+button.blk{font:inherit;font-size:12px;cursor:pointer}
+.blk.race{background:repeating-linear-gradient(45deg,#ffa53a 0 10px,#ffb354 10px 20px)}
+.blk.race.main{background:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),conic-gradient(#fff 25%,#111 0 50%,#fff 0 75%,#111 0) 0 0/14px 14px;color:#fff;text-shadow:0 1px 3px #000,0 0 6px #000;box-shadow:0 0 0 2px var(--orange),0 0 18px rgba(255,165,58,.6)}
+.blk span{display:block;opacity:.85;font-size:11px}
+.allday{grid-column:1/-1;display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding:9px 12px;border-bottom:1px solid var(--line);min-height:42px}
+.allday::before{content:"ALL DAY / TBA";font-family:var(--f-geo);font-weight:600;font-size:10px;letter-spacing:.2em;color:var(--mute);margin-right:4px}
+.ad-empty{font-size:12px;color:var(--mute)}
+.chip{border:1px solid var(--line);background:var(--panel-2);border-radius:999px;padding:5px 11px;font-size:12px;color:var(--fg);text-align:left}
+.chip i{font-style:normal;color:var(--mute);margin-left:4px}
+.chip:hover{border-color:var(--red)}
+.calkey{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--mute);margin:-4px 0 12px}
+.calkey span{display:inline-flex;align-items:center;gap:6px}
+.calkey i{width:12px;height:12px;border-radius:3px;background:var(--c)}
+.calkey i.chk{background:conic-gradient(#fff 25%,#111 0 50%,#fff 0 75%,#111 0) 0 0/6px 6px}
+.h-map h2{font-family:var(--f-neon);font-weight:400;font-size:clamp(40px,8vw,74px);line-height:.95;color:#fff;text-shadow:0 0 6px #fff,0 0 18px #ff3bd4,0 0 36px #ff3bd4;letter-spacing:.04em}
+.h-map .sub{font-family:var(--f-brush);font-size:28px;color:#ff8be6;margin-top:4px}
+.mapbox{border:1px solid var(--line);border-radius:16px;background:var(--noise),radial-gradient(120% 100% at 50% 50%,#121018,#060608);overflow-x:auto;-webkit-overflow-scrolling:touch}
+#map-svg svg{display:block;width:100%;min-width:760px;height:auto}
+.m-street{stroke:#1e1e26;stroke-width:1.5;stroke-dasharray:3 5}
+.m-st{fill:#5b5866;font:600 11px var(--f-cond);letter-spacing:.06em;text-transform:uppercase}
+.m-strip{stroke:#f4e7c6;stroke-width:5;stroke-linecap:round;filter:drop-shadow(0 0 6px rgba(255,226,160,.7))}
+.m-stripl{fill:var(--bulb);font:600 11px var(--f-geo);letter-spacing:.3em}
+.m-track{fill:rgba(255,165,58,.05);stroke:var(--orange);stroke-width:2.5;stroke-dasharray:8 6}
+.m-tracklbl{fill:var(--orange);font:600 10px var(--f-geo);letter-spacing:.25em;text-anchor:middle}
+.m-tram{stroke:#7fd18b;stroke-width:3;stroke-linecap:round;stroke-dasharray:1 7}
+.m-traml{fill:#7fd18b;font:600 9px var(--f-geo);letter-spacing:.2em}
+.m-mono{fill:none;stroke:var(--blue);stroke-width:4;stroke-linejoin:round;filter:drop-shadow(0 0 6px rgba(49,87,255,.8))}
+.m-stn{fill:#000;stroke:#8ea2ff;stroke-width:2.5}
+.m-stnl{fill:#8ea2ff;font:500 10px var(--f-body);text-anchor:middle}
+.m-stem{stroke:#3a3846;stroke-width:1.5}
+.m-dot{fill:#3a3846}
+.m-pin.on .m-dot{fill:var(--red);filter:drop-shadow(0 0 8px rgba(255,59,48,.9))}
+.m-pin.on .m-dot.race,.m-dot.race{fill:var(--orange)}
+.m-pin.on{cursor:pointer}
+.m-pin.on:hover .m-dot,.m-pin.on:focus .m-dot{fill:#fff}
+.m-pin:focus{outline:none}
+.m-n{fill:#fff;font:700 13px var(--f-cond);text-anchor:middle;pointer-events:none}
+.m-pin.on:hover .m-n{fill:#000}
+.m-hl{fill:#6d6a78;font:600 10px var(--f-cond);letter-spacing:.06em;text-anchor:middle}
+.m-pin.on .m-hl{fill:var(--fg)}
+.m-hl.home{fill:var(--orange)}
+.m-home{fill:var(--orange);filter:drop-shadow(0 0 8px rgba(255,165,58,.9))}
+.m-dir{fill:var(--mute);font:600 11px var(--f-geo);letter-spacing:.25em}
+.mapnote{font-size:12px;color:var(--mute);margin:8px 2px 14px}
+.map-list{display:grid;gap:8px}
+.ml-row{display:grid;grid-template-columns:170px 1fr;gap:12px;align-items:start;border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:10px 12px;transition:border-color .3s,box-shadow .3s}
+.ml-row.hl{border-color:var(--red);box-shadow:0 0 18px rgba(255,59,48,.35)}
+.ml-loc b{display:block;font-family:var(--f-roman);font-size:14px}
+.ml-loc span{font-family:var(--f-geo);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute)}
+.ml-chips{display:flex;flex-wrap:wrap;gap:6px}
+.h-race h2{font-family:var(--f-cond);font-weight:700;font-style:italic;font-size:clamp(42px,8vw,76px);line-height:.9;text-transform:uppercase;letter-spacing:.01em;color:#fff}
+.h-race .flag{height:14px;width:min(260px,70%);margin-top:8px;background:conic-gradient(#fff 25%,#111 0 50%,#fff 0 75%,#111 0) 0 0/14px 14px;border:1px solid #333}
+.h-race .sub{font-family:var(--f-geo);font-size:12px;letter-spacing:.3em;color:var(--orange);margin-top:8px;text-transform:uppercase}
+.race-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.race-day{display:grid;gap:6px;align-content:start}
+.rd-head{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid var(--orange);padding:0 2px 6px;font-family:var(--f-cond);text-transform:uppercase;letter-spacing:.08em}
+.rd-head span{font-size:18px;font-weight:700}.rd-head b{color:var(--orange);font-weight:500}
+.rblock{display:grid;grid-template-columns:76px 1fr;border-radius:6px;overflow:hidden;background:var(--panel);border:1px solid var(--line)}
+.rblock .rt{background:var(--orange);color:#2a1700;padding:8px 8px;font-family:var(--f-cond);font-weight:700;font-size:15px;line-height:1.1}
+.rblock .rt i{display:block;font-style:normal;font-weight:500;font-size:11px;opacity:.75}
+.rblock .rn{padding:8px 10px;display:grid;gap:2px}
+.rblock .rn b{font-weight:600;font-size:14px}
+.rblock .rn em{font-style:normal;font-family:var(--f-geo);font-weight:600;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--orange)}
+.rblock.acad .rt{background:#ff4fa3;color:#2b0016}.rblock.acad .rn em{color:#ff8bc4}
+.rblock.main{border-color:var(--orange);box-shadow:0 0 22px rgba(255,165,58,.45)}
+.rblock.main .rt{background:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),conic-gradient(#fff 25%,#111 0 50%,#fff 0 75%,#111 0) 0 0/12px 12px;color:#fff;text-shadow:0 0 4px #000,0 1px 2px #000}
+.rblock.main .rn b{font-family:var(--f-cond);font-size:18px;letter-spacing:.04em}
+.race-foot{font-size:12px;color:var(--mute);margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+@media (max-width:760px){.race-grid{grid-template-columns:1fr}.ml-row{grid-template-columns:1fr;gap:6px}}
+
+/* ---------- v5: see more, arrows, phone ---------- */
+.deck .card[hidden]{display:none}
+.see-more{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin:14px 0 4px;padding:12px;border:1px dashed #3a3846;border-radius:12px;background:var(--panel);color:var(--fg);font-family:var(--f-geo);font-weight:600;font-size:12px;letter-spacing:.2em;text-transform:uppercase}
+.see-more span{font-size:9px;color:var(--orange)}
+.see-more:hover{border-color:var(--orange)}
+.see-more[hidden]{display:none}
+.daytabs{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;gap:6px;align-items:center;flex-wrap:nowrap}
+.daytabs .tabrow{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;justify-content:safe center}
+.daytabs .tabrow::-webkit-scrollbar{display:none}
+.daytabs .tabrow button{flex:none;white-space:nowrap}
+.daytabs .tabrow b{font-weight:700}
+.daytabs .arrow{height:44px;border-radius:10px;border:1px solid var(--line);background:var(--panel-2);color:var(--fg);font-size:26px;line-height:1;padding:0;display:grid;place-items:center}
+.daytabs .arrow:disabled{opacity:.3}
+.daytabs .arrow:not(:disabled):hover{border-color:var(--orange);color:var(--orange)}
+section{scroll-margin-top:60px}
+@media (max-width:760px){
+  section{padding-block:40px 4px}
+  .daytabs .tabrow button{padding:10px 11px;font-size:13px}
+  .cal-scroll{max-height:62vh}
+  .blk{font-size:11px;padding:4px 6px}
+  .cal-h{padding:9px 8px;font-size:11px;letter-spacing:.14em}
+  .allday{padding:8px}
+  .hs{gap:6px}
+  .card .ttl{right:30px}
+  .card .mins{font-size:14px}
+  .rblock{grid-template-columns:70px 1fr}
+  .tickets{grid-template-columns:1fr 1fr}
+  .ticket{padding:14px 46px 14px 20px;min-height:92px}
+  .ticket .t-name{font-size:16px}
+  .food{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+  .tile{border-radius:18px;padding:8px 6px 10px}
+  .tile .hotel{font-size:8px;letter-spacing:.12em;padding:4px}
+  .tile .dish{font-size:11px}
+  .tile .veg{display:none}
+}
+.todo form{display:flex;gap:8px;margin-bottom:12px}
+.todo input[type=text]{flex:1;min-width:0;background:var(--black);border:1px solid var(--line);border-radius:10px;padding:11px 12px;color:var(--fg);font:inherit}
+.todo ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.todo li{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;background:var(--panel-2);transition:opacity .35s,transform .35s,max-height .35s;max-height:80px;overflow:hidden}
+.todo li.done{opacity:0;transform:translateX(28px) rotate(2deg);max-height:0;padding-block:0}
+.todo li input{appearance:none;-webkit-appearance:none;margin:0;flex:none;width:24px;height:24px;border-radius:6px;border:2px solid #55525d;display:grid;place-items:center;cursor:pointer}
+.todo li input::after{content:"";width:6px;height:6px;border-radius:50%;background:#fff;opacity:0}
+.todo li input:checked{background:var(--red);border-color:var(--red);box-shadow:0 0 12px rgba(255,59,48,.6)}
+.todo li input:checked::after{opacity:1}
+.todo li label{flex:1;min-width:0;cursor:pointer}
+.todo .empty{color:var(--mute);font-size:13px;background:none;padding:6px 2px}
+.todo .count{color:var(--mute);font-size:12px;margin-top:10px;font-family:var(--f-geo);letter-spacing:.14em;text-transform:uppercase}
+.todo .empty{list-style:none}
+
+/* ---------- v6: toned-down monorail, food, on track ---------- */
+#monorail .h-luxor h2{color:#b7c0e6;text-shadow:0 0 1px rgba(183,192,230,.4)}
+.steps li::before{border-color:#4b5585;color:#b7c0e6;box-shadow:none}
+.ticket{background:var(--noise),linear-gradient(135deg,#2b3350,#1b2034);color:#e6e9f3}
+.ticket::after{border-left-color:rgba(255,255,255,.18)}
+.ticket.pick{box-shadow:0 0 0 1.5px #b98a4e}
+.ticket.pick .t-kicker{color:#d9ad75;opacity:1}
+.pop{box-shadow:0 10px 40px rgba(0,0,0,.5)}
+#food .h-beau h2{color:#a9c7ad!important;text-shadow:none!important}
+.tile .hotel{background:color-mix(in srgb,var(--c) 30%,#1b1b22);color:#ece8df}
+.tile:hover{border-color:#4a4856;box-shadow:none}
+.veg{color:#93b398}
+.h-race .sub{color:#c9a477}
+.rd-head{border-bottom-color:#5e4a33}.rd-head b{color:#c9a477}
+.rblock .rt{background:#2b2219;color:#e3bd8c}
+.rblock .rn em{color:#b39370}
+.rblock.acad .rt{background:#2c1d25;color:#dea6c2}.rblock.acad .rn em{color:#c592ab}
+.rblock.main{border-color:#6a5438;box-shadow:none}
+.race-foot a.src{color:#c9a477!important}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header class="wrap hero">
+  <div style="position:relative">
+    <div class="deco d-a"><div class="die d5"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+    <div class="deco d-b"><div class="die d3"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+    <div class="sign">
+      <div class="sign-inner">
+        <div class="bulbs" aria-hidden="true"><span>L</span><span>V</span><span>G</span><span>P</span></div>
+        <div class="to">WELCOME TO THE</div>
+        <div class="fab">Fabulous</div>
+        <h1>RACE WEEK</h1>
+        <div class="nv">LAS VEGAS · NOV 18 TO 22</div>
+        <div class="draft">updated Nov 17 · every card rated for confidence</div>
+      </div>
+    </div>
+    <div class="stripes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+  </div>
+  <div class="tower glow-blue" aria-hidden="true"><span>L</span><span>A</span><span>S</span><span>V</span><span>E</span><span>G</span><span>A</span><span>S</span></div>
+</header>
+
+<nav class="strip" aria-label="Sections">
+  <div class="wrap">
+    <a href="#todo" style="--c:var(--orange)"><i></i>To-do</a>
+    <a href="#deck" style="--c:var(--red)"><i></i>The deck</a>
+    <a href="#calendar" style="--c:var(--fg)"><i></i>Calendar</a>
+    <a href="#map" style="--c:#ff3bd4"><i></i>Map</a>
+    <a href="#monorail" style="--c:var(--blue)"><i></i>Monorail</a>
+    <a href="#food" style="--c:#7fd18b"><i></i>Food</a>
+    <a href="#races" style="--c:var(--orange)"><i></i>Races</a>
+  </div>
+</nav>
+
+<main>
+  <section id="todo" class="wrap todo">
+    <div class="hs">
+      <div class="h-cosmo"><h2 class="glow-orange">Before you go</h2><div class="sub">of race week</div></div>
+      <p class="hint">Your own list, saved on this device. Check a task off and it clears itself.</p>
+    </div>
+    <div class="panel">
+      <form id="todo-form">
+        <input type="text" id="todo-input" placeholder="Add a task, e.g. RSVP for an event" aria-label="New task" autocomplete="off">
+        <button class="btn" type="submit">Add</button>
+      </form>
+      <ul id="todo-list"></ul>
+      <div class="count" id="todo-count"></div>
+    </div>
+  </section>
+
+  <section id="deck" class="wrap">
+    <div class="hs">
+      <div class="h-bellagio"><h2 class="glow-red">The Deck</h2><div class="sub">RACE WEEK</div></div>
+      <p class="hint">Tap a card to flip it. Tap the calendar icon to add it to your weekend.</p>
+    </div>
+    <div class="legend">
+      <span><b class="glow-red">♥</b>Driver appearance</span>
+      <span><b class="glow-red">♦</b>Networking / women in F1</span>
+      <span><b>♠</b>Team fan zone</span>
+      <span><b>♣</b>Pop-up / merch</span>
+    </div>
+    <div class="legend ckey"><span>Dot on each card =</span><span class="conf conf-high">High</span><span class="conf conf-medium">Medium</span><span class="conf conf-low">Low</span><span>confidence</span></div>
+    <div id="deck-days"></div>
+  </section>
+
+  <section id="calendar" class="wrap">
+    <div class="hs">
+      <div class="h-nyny"><h2><span class="o">Your</span>Weekend</h2><div class="sub">Events and monorail, same clock</div></div>
+      <p class="hint">Race sessions are already on in orange. Events you add sit side by side when they overlap, with monorail rides on the right.</p>
+    </div>
+    <div class="daytabs" id="daytabs"></div>
+    <div class="calkey"><span><i style="--c:var(--orange)"></i>Race sessions (always on)</span><span><i class="chk"></i>Grand Prix</span><span><i style="--c:var(--red)"></i>Events you add</span><span><i style="--c:var(--blue)"></i>Monorail rides</span></div>
+    <div class="cals">
+      <div class="cal-h"></div>
+      <div class="cal-h"><span class="dot" style="--c:var(--red)"></span>Events</div>
+      <div class="cal-h"><span class="dot" style="--c:var(--blue)"></span>Monorail</div>
+      <div class="allday" id="allday"></div>
+      <div class="cal-scroll" id="cal-scroll">
+        <div class="axis" id="axis"></div>
+        <div class="col" id="col-events"></div>
+        <div class="col mono" id="col-mono"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="map" class="wrap">
+    <div class="hs">
+      <div class="h-map"><h2>The Strip</h2><div class="sub">where&rsquo;s the pop-up?</div></div>
+      <p class="hint">Pins show what&rsquo;s open on the day you pick. Tap a pin to jump to that hotel&rsquo;s list.</p>
+    </div>
+    <div class="daytabs"></div>
+    <div class="mapbox"><div id="map-svg"></div></div>
+    <p class="mapnote">Schematic, not to scale. South is left, north is right, so the west side of the Strip is on top. About 4 miles end to end. On a phone, swipe the map sideways.</p>
+    <h3 class="hs" style="font-family:var(--f-geo);font-size:13px;letter-spacing:.25em;text-transform:uppercase;margin:6px 0 10px;display:block">South to north · <span id="map-day"></span></h3>
+    <div class="map-list" id="map-list"></div>
+  </section>
+
+  <section id="monorail" class="wrap">
+    <div class="hs">
+      <div class="h-luxor"><h2 class="glow-blue">MONORAIL</h2><div class="sub">LAS VEGAS</div></div>
+      <p class="hint">Tap a ticket for details and to add a ride to your calendar.</p>
+    </div>
+    <div class="mono-grid">
+      <div class="panel">
+        <ol class="steps">
+          <li><div><b>Buy a ticket</b><span>Cheapest as an eTicket at tix.lvmonorail.com. Paper tickets from machines at every station.</span></div></li>
+          <li><div><b>Walk to a station</b><span>Stations are at the back of MGM Grand, Horseshoe/Paris, Flamingo/Caesars, Harrah&rsquo;s/LINQ, the Convention Center, Westgate and SAHARA. Allow 10 to 15 min to walk through the hotel.</span></div></li>
+          <li><div><b>Scan and ride</b><span>Scan the QR code at the gate. Trains every 4 to 8 min, running 24/7 from Tue 11/17 7 AM to Mon 11/23 3 AM.</span></div></li>
+        </ol>
+      </div>
+      <div class="tickets" id="tickets"></div>
+    </div>
+  </section>
+
+  <section id="food" class="wrap">
+    <div class="hs">
+      <div class="h-beau"><h2 style="color:#7fd18b;text-shadow:0 0 8px rgba(127,209,139,.6)">Vegetarian Eats</h2><div class="sub">Sorted by hotel · all vegetarian</div></div>
+      <p class="hint">Tap a tile for the dish, hours and which events it's near.</p>
+    </div>
+    <div class="food" id="food-grid"></div>
+  </section>
+
+  <section id="races" class="wrap">
+    <div class="hs">
+      <div class="h-race"><h2>On Track</h2><div class="flag" aria-hidden="true"></div><div class="sub">F1 + F1 Academy · Las Vegas time</div></div>
+      <p class="hint">The non-negotiables. These are already on your calendar in orange.</p>
+    </div>
+    <div class="race-grid" id="race-grid"></div>
+    <div class="race-foot"><span class="conf conf-high">High confidence</span><a class="src" style="color:var(--orange)" href="https://www.formula1.com/en/latest/article/formula-1-heineken-las-vegas-grand-prix-2026.1qmWzcBwKK5hkTbYbhVC22" target="_blank" rel="noopener">F1 official schedule ↗</a><span>Pink = F1 Academy. Gates usually open about 2 hrs before the first session (not yet published).</span></div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <div class="stripes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="bye">See you at lights out</div>
+  <div>Info checked Nov 17, 2026 from official team, hotel and F1 pages plus race-week guides. Times can change: check the source on each card. Your to-do list and calendar save on this device only.</div>
+</footer>
+
+<div id="layer"></div>
+
+<script>
+(function(){
+  const SUIT = {heart:{s:'♥',c:'red',label:'Driver / team appearance'},diamond:{s:'♦',c:'red',label:'Networking / women in F1'},spade:{s:'♠',c:'ink',label:'Team fan zone'},club:{s:'♣',c:'ink',label:'Pop-up / merch'}};
+  const DAYS = [
+    {key:'2026-11-18',short:'Wed',label:'Wednesday',md:'11/18',neon:'glow-orange'},
+    {key:'2026-11-19',short:'Thu',label:'Thursday',md:'11/19',neon:'glow-purple'},
+    {key:'2026-11-20',short:'Fri',label:'Friday',md:'11/20',neon:'glow-red'},
+    {key:'2026-11-21',short:'Sat',label:'Saturday',md:'11/21',neon:'glow-blue'},
+    {key:'2026-11-22',short:'Sun',label:'Sunday',md:'11/22',neon:'glow-orange'}
+  ];
+  const DK = DAYS.map(d=>d.key);
+  const S = {
+    above:['Above Guide race-week list','https://above.guide/las-vegas-f1/race-week-events'],
+    lap29:['Lap Twenty Nine 2026 pop-ups','https://laptwentynine.com/las-vegas-2026-f1-race-week-events/'],
+    fanamp:['FanAmp 2026 fan zones','https://www.fanamp.com/tr/f1-las-vegas-grand-prix-fan-zones-events-concerts-2026'],
+    merc:['Mercedes Fan Hub','https://www.mercedesamgf1.com/promo/las-vegas-fan-hub-everything-you-need-to-know'],
+    willA:['Williams: 2026 appearances','https://www.williamsf1.com/articles/bcaf67c9-6ea3-43dd-9703-164353f0de81/appearances-confirmed-for-our-2026-las-vegas-fan-zone-presented-by-zoox'],
+    willZ:['Williams Fan Zone','https://www.williamsf1.com/articles/8c24ee33-42fd-4fcf-9518-b648055cde74/get-ready-for-our-2026-las-vegas-fan-zone-presented-by-zoox'],
+    wynn:['Wynn Ultimate Race Week','https://www.wynnlasvegas.com/experiences/ultimate-race-week'],
+    fq:['Female Quotient RSVP','https://events.thefemalequotient.com/lasvegasgrandprix26'],
+    summit:['F1 Business Summit','https://www.f1lasvegasgp.com/f1-business-summit/'],
+    summitPR:['Summit press release','https://s202.q4cdn.com/508919455/files/doc_news/2026/Sep/29/F1-Business-Summit-Pt-2-Press-Release-FINAL-9-29-26.pdf'],
+    venetian:['Venetian F1 page','https://www.venetianlasvegas.com/entertainment/f1-grand-prix/things-to-do.html'],
+    alpine:['Venetian: home of Alpine','https://www.venetianlasvegas.com/entertainment/f1-grand-prix/home-of-alpine.html'],
+    aston:['Aston Martin x PUMA','https://www.astonmartinf1.com/en-GB/IAM-las-vegas'],
+    f1sched:['F1 2026 Las Vegas schedule','https://www.formula1.com/en/latest/article/formula-1-heineken-las-vegas-grand-prix-2026.1qmWzcBwKK5hkTbYbhVC22'],
+    gpp:['News 3 LV: Grand Prix Plaza','https://news3lv.com/news/local/f1s-grand-prix-plaza-sets-reopening-date-after-2026-race'],
+    tmo:['T-Mobile LVGP page','https://www.t-mobile.com/benefits/las-vegas-grand-prix'],
+    paddockj:['The Paddock Journal','https://www.thepaddockjournal.com/thepodiumcollective'],
+    sainz:['Yahoo: Smooth Operator returns','https://sports.yahoo.com/articles/carlos-sainzs-smooth-operator-lounge-225315654.html'],
+    sheet:['Fan-compiled race-week event list','#'],
+    font:['Fontainebleau Race Club','https://www.fontainebleaulasvegas.com/experiences/race-club/'],
+    mgm:['MGM Resorts race week','https://www.mgmresorts.com/en/offers/f1-race-week.html']
+  };
+  const GET={
+    nyny:'South Strip at Tropicana Ave. Nearest monorail: MGM Grand, then a 10 min walk over the bridge.',
+    tmobile:'South Strip, next to MGM Grand. Nearest monorail: MGM Grand, 10 min walk.',
+    parkmgm:'South-center Strip. Free ARIA Express tram from here to ARIA and Bellagio. Nearest monorail: MGM Grand, 15 min walk.',
+    aria:'Center Strip. Free ARIA Express tram from Park MGM or Bellagio.',
+    cosmo:'Center Strip, between ARIA and Bellagio. Nearest monorail: Horseshoe/Paris, 10 min walk.',
+    puma:'Center Strip, east side, across from the Cosmopolitan. Nearest monorail: Horseshoe/Paris, 10 min walk.',
+    bellagio:'Center Strip. Free ARIA Express tram from Park MGM. Nearest monorail: Horseshoe/Paris, 10 min walk.',
+    caesars:'Center Strip. Monorail to Flamingo/Caesars Palace, then a 10 min walk.',
+    venetian:'Center-north Strip. Monorail to Harrah\'s/The LINQ, then a 10 min walk.',
+    wynn:'North Strip. Monorail to Harrah\'s/The LINQ, then a 15 min walk.',
+    fontainebleau:'North Strip. Monorail to Las Vegas Convention Center, then a 15 min walk.',
+    circuit:'Gates along Harmon Ave and Koval Ln. Your ticket shows which gate to use.'
+  };
+  // helpers to describe which days an event runs, with that day's hours
+  const span=(from,to,h)=>{const o={};DK.forEach(k=>{if(k>=from&&k<=to)o[k]=h});return o};
+  const ALL='all', TBA='tba';
+  // map locations, x = south (0) to north (1000), side w/e
+  const LOC = {
+    nyny:{n:'New York-New York',x:195,side:'w'}, mgm:{n:'MGM Grand',x:200,side:'e'},
+    tmobile:{n:'T-Mobile store',x:245,side:'e'}, parkmgm:{n:'Park MGM',x:250,side:'w'}, aria:{n:'ARIA',x:300,side:'w'},
+    cosmo:{n:'Cosmopolitan',x:350,side:'w'}, puma:{n:'PUMA flagship',x:365,side:'e'}, bellagio:{n:'Bellagio',x:405,side:'w'},
+    caesars:{n:'Caesars Palace',x:480,side:'w'}, circuit:{n:'F1 circuit + fan zones',x:420,side:'t'}, venetian:{n:'Venetian / Palazzo',x:610,side:'e'},
+    wynn:{n:'Wynn / Encore',x:720,side:'e'}, fontainebleau:{n:'Fontainebleau',x:850,side:'e'}
+  };
+  const EVENTS = [
+    // ---- multi-day pop-ups and fan zones ----
+    {id:'hub',suit:'club',loc:'venetian',title:'F1 Hub',venue:'Venetian / Palazzo',range:'Nov 7 to 29',days:span('2026-11-18','2026-11-22',['08:00','21:00']),where:'The Palazzo, Level 2, Grand Canal Shoppes. Official merch from every team, plus LEGO, Hello Kitty and Disney collabs.',tip:'Quietest first thing in the morning',cost:'Free entry',age:'All ages',eat:'Grand Lux Cafe, Venetian',conf:'High',note:'One guide says the F1 Academy car is on display here. The Venetian page doesn\'t mention it (Medium).',src:[S.venetian,S.fanamp]},
+    {id:'ferrari',suit:'club',loc:'bellagio',title:'Ferrari Pop-up Boutique',venue:'Bellagio',range:'Nov 7 to 23',days:span('2026-11-18','2026-11-22',['10:00','19:00']),where:'Ferrari boutique, Bellagio',tip:'Expect the longest line on Wednesday (Leclerc day)',cost:'Free entry',age:'All ages',eat:'Secret Pizza, Cosmopolitan',conf:'Medium',src:[S.above,S.lap29]},
+    {id:'leclerc',suit:'heart',loc:'bellagio',title:'Charles Leclerc Appearance',venue:'Ferrari boutique, Bellagio',range:'Nov 18 only',days:{'2026-11-18':['10:00','19:00']},where:'Ferrari boutique, Bellagio',tip:'Time not announced. Block shows boutique hours.',cost:'Arrangements TBD',age:'None listed',eat:'Secret Pizza, Cosmopolitan',conf:'Low',note:'Leclerc is listed for 11/18 but the time and how to get in are TBD. Watch @scuderiaferrari and @bellagio that morning.',src:[S.above,S.lap29]},
+    {id:'merc',suit:'spade',loc:'bellagio',title:'Mercedes Fan Hub',venue:'Bellagio Drive',range:'Nov 18 to 21',days:Object.assign({'2026-11-18':['12:00','20:30']},span('2026-11-19','2026-11-21',['14:00','22:00'])),where:'Bellagio Drive. Pit-stop challenge on a real car, sims, 2026 show car, giveaways.',tip:'Register online before you go',cost:'Free',age:'None listed',eat:'Secret Pizza, Cosmopolitan',conf:'Medium',note:'Time zone conflict: Mercedes labels these hours "CDT", which would make them 2 hours earlier in Vegas (Wed 10 AM to 6:30 PM, Thu to Sat 12 to 8 PM). Guides list them as Vegas time. Go early in the window to be safe.',src:[S.merc,S.lap29]},
+    {id:'will',suit:'spade',loc:'nyny',title:'Williams Fan Zone',venue:'New York-New York',range:'Nov 16 to 21',days:span('2026-11-18','2026-11-21',['11:00','19:00']),where:'Brooklyn Bridge, NYNY. FW48 show car, sims, New Era cap customizing. Fan Zone Live show daily at 5 PM.',tip:'Show the Driver Card in the Williams app at entry',cost:'Free (Williams app + Driver Card)',age:'None listed',eat:'Shake Shack, NYNY',conf:'High',note:'Hours conflict: 11 AM to 7 PM (Williams 2026 article) vs open to 9 PM on another Williams page. Carlos Sainz\'s Q&A was Tue 11/17.',src:[S.willZ,S.willA]},
+    {id:'alpine',suit:'spade',loc:'venetian',title:'Alpine Show Car',venue:'Venetian',range:'Nov 19 to 21',days:span('2026-11-19','2026-11-21',ALL),where:'Grand Colonnade, near the Venetian lobby. Sims too.',tip:'Pair with the F1 Hub',cost:'Free',age:'All ages',eat:'Grand Lux Cafe',conf:'Medium',note:'Display hours not published. The Venetian is Alpine\'s base Nov 19 to 21.',src:[S.alpine,S.venetian]},
+    {id:'haascar',suit:'spade',loc:'cosmo',title:'Haas Show Car + Art Floor',venue:'Cosmopolitan',range:'Nov 16 to 22',days:span('2026-11-18','2026-11-22',ALL),where:'Chelsea Tower, Level 2: Haas show car (24/7), curated art helmets, digital racing installation',tip:'Little or no line',cost:'Free',age:'All ages',eat:'Block 16 food hall, Level 2',conf:'Medium',src:[S.lap29,S.above]},
+    {id:'armin',suit:'club',loc:'cosmo',title:'Armin Flossdorf Live Painting',venue:'Cosmopolitan',range:'Nov 18 to 21',days:span('2026-11-18','2026-11-21',['14:00','17:00']),where:'Chelsea Tower, Level 2, next to the Haas car',tip:'Watch an F1 artwork being made',cost:'Free',age:'All ages',eat:'Secret Pizza, Level 3',conf:'Medium',src:[S.lap29,S.above]},
+    {id:'cafe',suit:'club',loc:'wynn',title:'Café Leclerc',venue:'Wynn',range:'Nov 18 to 22',days:span('2026-11-18','2026-11-22',TBA),where:'Caffè Al Teatro, Wynn. Leclerc-themed treats and merch.',tip:'Good lunch stop',cost:'Pay for food and merch',age:'All ages',eat:'This is the food stop',conf:'Medium',note:'Hours not published. Not a Charles appearance.',src:[S.wynn]},
+    {id:'lando',suit:'club',loc:'wynn',title:'Lando\'s Clubhouse',venue:'Wynn',range:'Nov 18 to 21',days:span('2026-11-18','2026-11-21',TBA),where:'Awakening Theater lobby, Wynn. Lando\'s LN4 store.',tip:'Budget an hour',cost:'Free entry',age:'All ages',eat:'Caffè Al Teatro',conf:'High',note:'Hours not published.',src:[S.wynn]},
+    {id:'p44',suit:'club',loc:'wynn',title:'+44 Hamilton Pop-up',venue:'Encore',range:'Nov 18 to 22',days:span('2026-11-18','2026-11-22',TBA),where:'Encore Esplanade',tip:'Budget an hour',cost:'Free entry',age:'All ages',eat:'Wynn vegetarian menus',conf:'High',note:'Hours not published.',src:[S.wynn]},
+    {id:'lvgpstore',suit:'club',loc:'wynn',title:'Official LVGP Merch Store',venue:'Encore',range:'Nov 18 to 22',days:span('2026-11-18','2026-11-22',TBA),where:'Encore Theater rotunda',tip:'On the way to +44',get:'Inside Encore',cost:'Free entry',age:'All ages',eat:'Wynn vegetarian menus',conf:'Medium',note:'Hours not published.',src:[S.wynn]},
+    {id:'redbull',suit:'spade',loc:'wynn',title:'Red Bull Pit Stop Challenge',venue:'Wynn',range:'Nov 18 to 22',days:span('2026-11-18','2026-11-22',TBA),where:'Wynn Racing Motors Lounge',tip:'Hands-on tire change',get:'Inside Wynn',cost:'Free',age:'Not stated',eat:'Wynn vegetarian menus',conf:'Medium',note:'Wynn lists the lounge without hours or an exact spot.',src:[S.wynn]},
+    {id:'mclaren',suit:'spade',loc:'wynn',title:'McLaren Experience Center',venue:'Wynn / Encore',range:'Open now through race week',days:span('2026-11-18','2026-11-22',['10:00','19:00']),where:'Wynn / Encore. Golf simulators and McLaren displays.',tip:'Pair with the Wynn pop-ups',cost:'Free entry',age:'Not stated',eat:'Wynn vegetarian menus',conf:'Medium',note:'Hours from one event list only.',src:[S.sheet,S.fanamp]},
+    {id:'google',suit:'club',loc:'aria',title:'Google Play Pop-up',venue:'ARIA',range:'Nov 18 to 20',days:{'2026-11-18':['12:00','20:00'],'2026-11-19':['12:00','20:00'],'2026-11-20':['12:00','17:00']},where:'Iris, ARIA. Live auction Fri 6 to 8 PM.',tip:'Book a free time slot by QR code',cost:'Free with time slot',age:'None listed',eat:'Din Tai Fung, ARIA',conf:'Medium',src:[S.lap29,S.fanamp]},
+    {id:'sainz',suit:'heart',loc:'aria',title:'Sainz Smooth Operator Lounge',venue:'ARIA',range:'Nov 18 to 22',days:span('2026-11-18','2026-11-22',TBA),where:'Proper Eats food hall, ARIA',tip:'Ask staff which day Carlos is coming',cost:'Free entry, buy your own food',age:'Check at the door',eat:'Proper Eats stalls',conf:'Low',note:'Location conflicts: one event list says Easy\'s Cocktail Lounge (21+), 2026 guides say the Proper Eats food hall. End date varies by source (Nov 20 or 22). Sainz appearance date not announced.',src:[S.lap29,S.fanamp,S.sainz]},
+    {id:'enchante',suit:'club',loc:'bellagio',title:'Enchante Pop-up',venue:'Bellagio',range:'Nov 18 to 21',days:span('2026-11-18','2026-11-21',['12:00','22:00']),where:'The Shops at Via Bellagio',tip:'Pair with Ferrari',cost:'Free entry',age:'Not stated',eat:'Secret Pizza, Cosmopolitan',conf:'Medium',note:'From one event list. I couldn\'t find a 2026 page for it.',src:[S.sheet]},
+    {id:'tmo',suit:'club',loc:'tmobile',title:'T-Mobile Signature Store',venue:'By MGM Grand',range:'Nov 16 to 22',days:span('2026-11-18','2026-11-22',['09:00','21:00']),where:'3791 Las Vegas Blvd S. Daily giveaways for T-Mobile members.',tip:'Giveaways are for members, plus 2 guests',cost:'Free',age:'None listed',eat:'Shake Shack, NYNY',conf:'Medium',src:[S.tmo,S.fanamp]},
+    {id:'paddockj',suit:'club',loc:'bellagio',title:'Paddock Journal x Lytedust',venue:'Bellagio',range:'Nov 19 to 22',days:Object.assign(span('2026-11-19','2026-11-21',['10:00','19:00']),{'2026-11-22':['10:00','14:00']}),where:'Bellagio Promenade',tip:'Motorsport fashion, creative-side contacts',cost:'Free entry',age:'All ages',eat:'Eataly on the way',conf:'Medium',src:[S.fanamp,S.paddockj]},
+    {id:'pepsi',suit:'club',loc:'parkmgm',title:'Pepsi Flavor Circuit',venue:'Park MGM',range:'Nov 19 to 21',days:{'2026-11-19':['13:00','20:00'],'2026-11-20':['12:00','20:00'],'2026-11-21':['12:00','20:00']},where:'Next to Park MGM. Tastings, DJs, celebrity appearances (unnamed).',tip:'Busier after 5 PM',cost:'Not listed',age:'None listed',eat:'Eataly, Park MGM',conf:'Medium',src:[S.lap29]},
+    {id:'schin',suit:'club',loc:'cosmo',title:'Schin Loong Guest Sketches',venue:'Cosmopolitan',range:'Nov 20 to 21',days:span('2026-11-20','2026-11-21',['17:00','21:00']),where:'Boulevard Tower, Level 3',tip:'A personal F1 sketch to take home',cost:'Not listed',age:'Not stated',eat:'Secret Pizza, Level 3',conf:'Medium',src:[S.sheet]},
+    {id:'bumbys',suit:'club',loc:'cosmo',title:'The Bumbys Appraisals',venue:'Cosmopolitan',range:'Nov 20 to 21',days:span('2026-11-20','2026-11-21',['15:30','18:30']),where:'Boulevard Tower, Level 2',tip:'Personalized art appraisals',cost:'Not listed',age:'Not stated',eat:'Block 16 food hall',conf:'Medium',src:[S.sheet]},
+    {id:'fbcar',suit:'club',loc:'fontainebleau',title:'Custom Race Car Display',venue:'Fontainebleau',range:'Through Nov 21',days:span('2026-11-18','2026-11-21',TBA),where:'Fontainebleau Las Vegas',tip:'15 min walk north of Wynn',cost:'Free',age:'Not stated',eat:'Wynn vegetarian menus',conf:'Low',note:'Hours and exact spot TBA.',src:[S.font,S.sheet]},
+    // ---- one-off events ----
+    {id:'aston',suit:'club',loc:'puma',title:'Aston Martin x PUMA Rooftop',venue:'PUMA flagship',range:'Nov 18 only',days:{'2026-11-18':['19:00','22:00']},where:'The Overlook rooftop, 3747 S Las Vegas Blvd. Workout class 7 PM, afterparty 8 to 10 PM.',tip:'Entry by RSVP form, not guaranteed',cost:'Free if selected',age:'Not stated',eat:'Secret Pizza, Cosmopolitan',conf:'Medium',note:'The Aston Martin page says "race week". The 11/18 date is from one event list. Overlaps the Haas queue.',src:[S.aston,S.sheet]},
+    {id:'haasmg',suit:'heart',loc:'cosmo',title:'Haas Meet-and-Greet',venue:'Cosmopolitan',range:'Nov 18 only',days:{'2026-11-18':['21:30','22:30']},where:'Chelsea Tower, Level 2',tip:'Queue by 8:30 PM. First come, first served, limited spots.',cost:'Free',age:'None listed',eat:'Secret Pizza (open late)',conf:'Medium',note:'Times conflict: 9:30 to 10:30 PM (Lap Twenty Nine, FanAmp) vs 10 to 11 PM (Above Guide). Drivers not named. Queuing by 8:30 covers both.',src:[S.lap29,S.above,S.fanamp]},
+    {id:'summit',suit:'diamond',loc:'caesars',title:'F1 Business Summit',venue:'Caesars Palace',range:'Nov 19 only',days:{'2026-11-19':['08:00','13:00']},where:'The Colosseum. Networking breakfast 8 to 9 AM, then panels. Badge-holder social at F1 Arcade 1 to 3 PM.',tip:'Arrive 7:45 for the breakfast',cost:'$550 (VIP $2,500)',age:'Not stated. Email the organizer.',eat:'Breakfast included',conf:'Medium',src:[S.summit,S.summitPR]},
+    {id:'fq',suit:'diamond',loc:'wynn',title:'FQ Lounge x F1 Academy',venue:'Wynn',range:'Nov 20 only',days:{'2026-11-20':['10:15','13:30']},where:'Delilah, Wynn. Panel "Playing the Long Game" at 10:45.',tip:'Queue at 9:15',cost:'Free, RSVP required',age:'Not stated. Delilah is 21+ at night, so confirm.',eat:'Wynn vegetarian menus',conf:'Medium',note:'The FQ page header also shows June 22 to 25. Wynn confirms Nov 20.',src:[S.fq,S.wynn]},
+    {id:'vowles',suit:'heart',loc:'nyny',title:'James Vowles Q&A',venue:'Williams Fan Zone',range:'Nov 20 only',days:{'2026-11-20':['12:00','12:30']},where:'Brooklyn Bridge, NYNY. Williams Team Principal.',tip:'Arrive 1 hr early',cost:'Free (Williams app)',age:'None listed',eat:'Shake Shack, NYNY',conf:'High',note:'Clashes with the FQ Lounge.',src:[S.willA]},
+    {id:'hill',suit:'heart',loc:'nyny',title:'Damon Hill Q&A',venue:'Williams Fan Zone',range:'Nov 20 only',days:{'2026-11-20':['14:00','14:30']},where:'Brooklyn Bridge, NYNY. 1996 world champion.',tip:'Leave Wynn by 12:45 to queue in time',get:'From Wynn: monorail LINQ to MGM Grand, walk 15 min',cost:'Free (Williams app)',age:'None listed',eat:'Shake Shack, NYNY',conf:'High',note:'Overlaps the end of the FQ Lounge.',src:[S.willA]},
+    {id:'heineken',suit:'diamond',loc:'circuit',title:'Heineken Stage + F1 Academy Area',venue:'East Harmon / Koval',range:'Nov 19 to 21 (race ticket)',days:{'2026-11-21':TBA},where:'Inside the East Harmon and Koval fan zones',tip:'Driver Q&As happen on this stage',get:'Harmon gates, 20 min walk',cost:'Included with grandstand tickets that open these zones (e.g. West Harmon)',age:'Ticket holders',eat:'Eat before. Zone food costs extra.',conf:'Medium',note:'Gate times and Q&A running order not published. The F1 Academy area is a fan area, not the team paddock.',src:[S.fanamp,S.lap29]}
+  ];
+  const ACES = [
+    {id:'gpp',suit:'club',loc:'circuit',title:'Grand Prix Plaza',venue:'Closed to public',range:'Reopens Jan 8, 2027',where:'The pit building complex, off Koval Ln',cost:'Only with Paddock Club or Wynn Grid Club hospitality tickets',conf:'High',note:'F1 X, F1 Drive karts and the sims closed in October for race prep. Grandstand tickets don\'t include it.',src:[S.gpp]},
+    {id:'tmlando',suit:'heart',loc:'tmobile',title:'Lando Norris at T-Mobile',venue:'Date unconfirmed',range:'No 2026 date',where:'T-Mobile Signature Store, 3791 Las Vegas Blvd S',cost:'May be T-Mobile members only',conf:'Low',note:'The page says "Tuesday 11/18, 3:20 PM". Those weekdays match 2025, so this is likely last year\'s listing.',src:[S.tmo,S.fanamp]},
+    {id:'bottas',suit:'heart',loc:'',title:'Bottas at Category 10',venue:'21+ only',range:'Nov 18, 9:30 PM',where:'Category 10, Flamingo',cost:'n/a',conf:'Low',note:'A bar night with line dancing, very likely 21+, and it clashes with Haas. One event list lists a Nashville address for it.',src:[S.lap29]},
+    {id:'steiner',suit:'heart',loc:'',title:'Guenther Steiner Live',venue:'Likely 21+',range:'Nov 21, 12:30 PM',where:'Ghostbar rooftop, Palms (off-Strip)',cost:'Free general admission',conf:'Low',note:'Ghostbar is a rooftop bar, very likely 21+. Worth it only if it\'s confirmed all ages.',src:[S.fanamp]}
+  ];
+  const RACE = [
+    {day:'2026-11-19',start:'15:00',end:'16:00',title:'F1 car presentation',series:'FIA'},
+    {day:'2026-11-19',start:'16:30',end:'17:30',title:'Practice 1',series:'F1'},
+    {day:'2026-11-19',start:'18:00',end:'18:40',title:'Practice',series:'F1 Academy'},
+    {day:'2026-11-19',start:'18:30',end:'19:30',title:'Team principals\' press conference',series:'F1'},
+    {day:'2026-11-19',start:'20:00',end:'21:00',title:'Practice 2',series:'F1'},
+    {day:'2026-11-19',start:'21:30',end:'22:00',title:'Qualifying',series:'F1 Academy'},
+    {day:'2026-11-20',start:'16:30',end:'17:30',title:'Practice 3',series:'F1'},
+    {day:'2026-11-20',start:'18:15',end:'18:50',title:'Reverse-grid race',series:'F1 Academy'},
+    {day:'2026-11-20',start:'20:00',end:'21:00',title:'Qualifying',series:'F1'},
+    {day:'2026-11-20',start:'21:00',end:'22:00',title:'Post-qualifying press conference',series:'F1'},
+    {day:'2026-11-21',start:'16:20',end:'16:55',title:'Feature race',series:'F1 Academy'},
+    {day:'2026-11-21',start:'18:00',end:'18:30',title:'Drivers\' parade',series:'F1'},
+    {day:'2026-11-21',start:'19:44',end:'19:46',title:'National anthem',series:'F1',nocal:true},
+    {day:'2026-11-21',start:'20:00',end:'22:00',title:'GRAND PRIX · 50 laps',series:'F1',main:true}
+  ];
+  const TICKETS = [
+    {id:'t1',name:'One Ride',sub:'Single trip',price:'$5.75',paper:'$6.25',best:'A one-off trip'},
+    {id:'t2',name:'1-Day Pass',sub:'Unlimited, 24 hrs',price:'$13.95',paper:'$15.50',best:'A single busy day, like Friday at Wynn'},
+    {id:'t3',name:'3-Day Pass',sub:'Unlimited, 72 hrs',price:'$30.85',paper:'$33.00',best:'Thu to Sat if you walk Wed and Sun'},
+    {id:'t4',name:'5-Day Pass',sub:'Unlimited, 120 hrs',price:'$45.85',paper:'$48.25',best:'Staying Wednesday through Sunday',pick:true}
+  ];
+  const FOOD = [
+    {k:'burger',c:'var(--blue)',hotel:'New York-New York',name:'Shake Shack',dish:'\'Shroom Burger',where:'Toshiba Plaza, next to NYNY',near:'Williams Fan Zone',conf:'High'},
+    {k:'pizza',c:'var(--red)',hotel:'Park MGM',name:'Eataly',dish:'Margherita pizza, pasta',where:'Park MGM, Strip entrance',near:'Pepsi Flavor Circuit',conf:'High'},
+    {k:'dumpling',c:'var(--purple)',hotel:'ARIA',name:'Din Tai Fung',dish:'Vegetable dumplings',where:'ARIA, casino level',near:'Google Play, Sainz lounge',conf:'High'},
+    {k:'taco',c:'var(--orange)',hotel:'ARIA',name:'Proper Eats',dish:'Food hall, several veg stalls',where:'ARIA, near Crystals',near:'Sainz Smooth Operator Lounge',conf:'Medium'},
+    {k:'pizza',c:'var(--red)',hotel:'Cosmopolitan',name:'Secret Pizza',dish:'Cheese or veggie slice',where:'Level 3, unmarked hallway',near:'Haas meet-and-greet',conf:'High'},
+    {k:'bowl',c:'var(--purple)',hotel:'Cosmopolitan',name:'Jaleo',dish:'Patatas bravas, tomato bread',where:'Level 3',near:'Ferrari boutique, Haas',conf:'High'},
+    {k:'bowl',c:'var(--blue)',hotel:'Caesars Palace',name:'Cheesecake Factory',dish:'Big vegetarian section',where:'Forum Shops',near:'F1 Business Summit',conf:'High'},
+    {k:'bowl',c:'var(--orange)',hotel:'Venetian',name:'Grand Lux Cafe',dish:'Vegetarian pastas, salads',where:'Venetian casino level',near:'F1 Hub, Alpine',conf:'Medium'},
+    {k:'croissant',c:'var(--red)',hotel:'Wynn',name:'Caffè Al Teatro',dish:'Café Leclerc treats',where:'Wynn, by the theater',near:'FQ Lounge, Lando, +44',conf:'Medium'}
+  ];
+  const STATIONS = ['MGM Grand','Horseshoe/Paris','Flamingo/Caesars Palace','Harrah\'s/The LINQ','Las Vegas Convention Center','Westgate','SAHARA'];
+  const START_H = 7, HOURS = 20, PX = 44;
+
+  const store = {
+    get(k,d){try{const v=localStorage.getItem('lvgp-'+k);return v?JSON.parse(v):d}catch(e){return d}},
+    set(k,v){try{localStorage.setItem('lvgp-'+k,JSON.stringify(v))}catch(e){}}
+  };
+  let todos = store.get('todos2',[]);
+  let added = new Set(store.get('added3',[]));
+  let rides = store.get('rides',[]);
+  let curDay = DAYS[0].key;
+
+  const $ = s=>document.querySelector(s);
+  const esc = s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const el = (tag,attrs={},html='')=>{const e=document.createElement(tag);for(const k in attrs){if(k==='class')e.className=attrs[k];else e.setAttribute(k,attrs[k])}if(html)e.innerHTML=html;return e};
+  const toMin = t=>{const [h,m]=t.split(':').map(Number);let x=h*60+m;if(h<START_H)x+=1440;return x};
+  const fmt = t=>{let [h,m]=t.split(':').map(Number);const ap=h>=12?'pm':'am';h=h%12||12;return h+(m?':'+String(m).padStart(2,'0'):'')+' '+ap};
+  const dayOf = k=>DAYS.find(d=>d.key===k);
+  const findEv = id=>EVENTS.find(e=>e.id===id);
+  const hoursText = h=>h===ALL?'Open 24/7':h===TBA?'Hours TBA':fmt(h[0])+' to '+fmt(h[1]);
+  const rangeMd = ev=>{const ks=Object.keys(ev.days).sort();const a=dayOf(ks[0]).md,b=dayOf(ks[ks.length-1]).md;return ks.length>1?a+'–'+b.split('/')[1]:a};
+  function scheduleSummary(ev){
+    const ks=Object.keys(ev.days).sort();const groups=[];
+    ks.forEach(k=>{const t=hoursText(ev.days[k]);const g=groups[groups.length-1];if(g&&g.t===t)g.to=k;else groups.push({from:k,to:k,t})});
+    return groups.map(g=>'<b>'+dayOf(g.from).short+(g.to!==g.from?'–'+dayOf(g.to).short:'')+'</b> '+g.t).join(' · ');
+  }
+  function toast(msg){const t=el('div',{class:'toast',role:'status'},msg);document.body.appendChild(t);setTimeout(()=>t.remove(),1800)}
+  const calIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>';
+  const confBadge = c=>'<span class="conf conf-'+c.toLowerCase()+'">'+c+' confidence</span>';
+
+
+  // ---------- To-do ----------
+  function renderTodos(){
+    const ul=$('#todo-list');ul.innerHTML='';
+    if(!todos.length)ul.appendChild(el('li',{class:'empty'},'Nothing here yet. Add your first task above.'));
+    todos.forEach(td=>{
+      const li=el('li');const id='td-'+td.id;
+      li.innerHTML='<input type="checkbox" id="'+id+'"><label for="'+id+'"></label>';
+      li.querySelector('label').textContent=td.t;
+      li.querySelector('input').addEventListener('change',()=>{li.classList.add('done');setTimeout(()=>{todos=todos.filter(x=>x.id!==td.id);store.set('todos2',todos);renderTodos()},380)});
+      ul.appendChild(li);
+    });
+    $('#todo-count').textContent=todos.length?todos.length+' to go':'';
+  }
+  $('#todo-form').addEventListener('submit',e=>{e.preventDefault();const v=$('#todo-input').value.trim();if(!v)return;todos.push({id:Date.now(),t:v});store.set('todos2',todos);$('#todo-input').value='';renderTodos()});
+
+  // ---------- Cards ----------
+  function cardFront(ev,dk){
+    const s=SUIT[ev.suit];let hr,mins;
+    const h=dk?ev.days[dk]:null;
+    if(!ev.days){hr='A';mins='no set time'}
+    else if(h===ALL){hr='24';mins='/7<em>'+rangeMd(ev)+'</em>'}
+    else if(h===TBA){hr='?';mins='TBA<em>'+rangeMd(ev)+'</em>'}
+    else{const [H,M]=h[0].split(':').map(Number);hr=H%12||12;mins=':'+String(M).padStart(2,'0')+(H>=12?'pm':'am')+'<em>'+rangeMd(ev)+'</em>'}
+    return '<span class="idx"><span class="row"><span class="hr '+s.c+'">'+hr+'</span><span class="mins">'+mins+'</span></span><span class="pip '+s.c+'">'+s.s+'</span></span>'+
+      '<span class="center '+s.c+'">'+s.s+'</span>'+
+      '<span class="ttl">'+esc(ev.title)+'<small>'+esc(ev.venue)+(h&&h!==ALL&&h!==TBA?' · til '+fmt(h[1]):'')+'</small></span>'+
+      '<span class="cdot conf-'+ev.conf.toLowerCase()+'" title="'+ev.conf+' confidence"></span>'+
+      '<span class="idx flip"><span class="hr '+s.c+'">'+hr+'</span><span class="pip '+s.c+'">'+s.s+'</span></span>';
+  }
+  const key=(ev,dk)=>ev.id+'@'+dk;
+  function makeCard(ev,dk){
+    const c=el('div',{class:'card',role:'button',tabindex:'0','aria-label':ev.title+(dk?', '+dayOf(dk).label:'')});
+    c.innerHTML=cardFront(ev,dk);
+    if(dk){
+      const on=added.has(key(ev,dk));
+      const cb=el('button',{class:'cal-btn'+(on?' on':''),'aria-label':(on?'Remove ':'Add ')+ev.title+' on '+dayOf(dk).label+' to calendar','aria-pressed':on},calIcon);
+      cb.addEventListener('click',e=>{e.stopPropagation();toggleAdd(ev,dk)});
+      c.appendChild(cb);
+    }
+    const open=()=>openCard(ev,dk);
+    c.addEventListener('click',open);c.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open()}});
+    return c;
+  }
+  const sortKey=h=>h===ALL?3000:h===TBA?3001:toMin(h[0]);
+  function renderDeck(){
+    const wrap=$('#deck-days');wrap.innerHTML='';
+    DAYS.forEach(d=>{
+      const evs=EVENTS.filter(e=>e.days[d.key]).sort((a,b)=>{const x=sortKey(a.days[d.key]),y=sortKey(b.days[d.key]);return x-y||a.title.localeCompare(b.title)});
+      if(!evs.length)return;
+      wrap.appendChild(el('div',{class:'day-label'},'<span class="dow '+d.neon+'">'+d.short+'</span><span class="date">'+d.label.toUpperCase()+' · '+d.md+' · '+evs.length+' CARDS</span>'));
+      const grid=el('div',{class:'deck'+(openDays.has(d.key)?'':' clamped'),'data-day':d.key});evs.forEach(ev=>grid.appendChild(makeCard(ev,d.key)));wrap.appendChild(grid);
+      const more=el('button',{class:'see-more',type:'button','data-day':d.key});more.onclick=()=>{openDays.has(d.key)?openDays.delete(d.key):openDays.add(d.key);if(!openDays.has(d.key)){grid.classList.add('clamped');const lbl=grid.previousElementSibling;lbl.scrollIntoView({block:'start'})}else grid.classList.remove('clamped');clampDecks()};wrap.appendChild(more);
+    });
+    wrap.appendChild(el('div',{class:'day-label'},'<span class="dow glow-purple">Aces</span><span class="date">WILD CARDS · CLOSED, UNCONFIRMED OR 21+</span>'));
+    const g=el('div',{class:'deck'});ACES.forEach(ev=>g.appendChild(makeCard(ev,null)));wrap.appendChild(g);
+    clampDecks();
+  }
+  const openDays=new Set();
+  function clampDecks(){
+    document.querySelectorAll('.deck[data-day]').forEach(g=>{
+      const cols=getComputedStyle(g).gridTemplateColumns.split(' ').filter(Boolean).length||2;
+      const cards=[...g.children],lim=cols*2,open=openDays.has(g.dataset.day);
+      cards.forEach((c,i)=>c.hidden=!open&&i>=lim);
+      const b=g.nextElementSibling;
+      if(cards.length<=lim){b.hidden=true;return}
+      b.hidden=false;b.innerHTML=open?'Show less <span>▲</span>':'See all '+cards.length+' cards <span>▼</span>';b.setAttribute('aria-expanded',open);
+    });
+  }
+  let rz;window.addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(clampDecks,120)});
+  function toggleAdd(ev,dk){
+    const k=key(ev,dk);
+    if(added.has(k)){added.delete(k);toast('Removed from calendar')}else{added.add(k);toast('Added to '+dayOf(dk).short+' '+dayOf(dk).md);curDay=dk}
+    store.set('added3',[...added]);renderDeck();renderCal();renderMap();
+  }
+  function closeLayer(){$('#layer').innerHTML='';document.removeEventListener('keydown',escClose)}
+  function escClose(e){if(e.key==='Escape')closeLayer()}
+  function overlay(content){
+    const o=el('div',{class:'overlay',role:'dialog','aria-modal':'true'});
+    o.appendChild(content);
+    const x=el('button',{class:'close-x','aria-label':'Close'},'×');x.onclick=closeLayer;o.appendChild(x);
+    o.addEventListener('click',e=>{if(e.target===o)closeLayer()});
+    $('#layer').innerHTML='';$('#layer').appendChild(o);document.addEventListener('keydown',escClose);
+  }
+  function openCard(ev,dk){
+    const s=SUIT[ev.suit];
+    const rows=[['Dates',esc(ev.range)]];
+    if(ev.days){
+      if(dk)rows.push([dayOf(dk).short+' '+dayOf(dk).md,'<b>'+hoursText(ev.days[dk])+'</b>']);
+      rows.push(['All days',scheduleSummary(ev)]);
+    }
+    rows.push(['Where',esc(ev.where)]);
+    if(ev.tip)rows.push(['Tip',esc(ev.tip)]);
+    const gt=ev.get||GET[ev.loc];if(gt)rows.push(['Get there',esc(gt)]);
+    rows.push(['Cost',esc(ev.cost)]);
+    if(ev.age)rows.push(['Age',esc(ev.age)]);
+    if(ev.eat)rows.push(['Eat near',esc(ev.eat)]);
+    const f=el('div',{class:'flipper'});
+    f.innerHTML='<div class="flip-inner"><div class="face front"><div class="card">'+cardFront(ev,dk)+'</div></div>'+
+      '<div class="face back"><div class="card">'+
+        '<div class="back-top"><div><h3>'+esc(ev.title)+'</h3><div class="tag">'+s.s+' '+s.label+'</div></div>'+confBadge(ev.conf)+'</div>'+
+        '<dl class="logi">'+rows.map(r=>'<dt>'+r[0]+'</dt><dd>'+r[1]+'</dd>').join('')+'</dl>'+
+        (ev.note?'<div class="heads"><b>Heads up</b>'+esc(ev.note)+'</div>':'')+
+        '<div class="srcs">'+ev.src.map(x=>x[1]==='#'?'<span class="src" style="color:var(--paper-mute)">'+esc(x[0])+'</span>':'<a class="src" href="'+x[1]+'" target="_blank" rel="noopener">'+esc(x[0])+' ↗</a>').join('')+'</div>'+
+        '<div class="back-actions">'+(dk?'<button class="btn add" type="button">'+(added.has(key(ev,dk))?'Remove from calendar':'Add '+dayOf(dk).short+' to calendar')+'</button>':'')+'<button class="btn ghost flipback" type="button">Flip back</button></div>'+
+      '</div></div></div>';
+    overlay(f);
+    const inner=f.querySelector('.flip-inner');
+    requestAnimationFrame(()=>setTimeout(()=>inner.classList.add('turned'),140));
+    f.querySelector('.flipback').onclick=()=>inner.classList.toggle('turned');
+    f.querySelector('.face.front').onclick=()=>inner.classList.add('turned');
+    const ab=f.querySelector('.add');if(ab)ab.onclick=e=>{toggleAdd(ev,dk);e.target.textContent=added.has(key(ev,dk))?'Remove from calendar':'Add '+dayOf(dk).short+' to calendar'};
+  }
+
+  // ---------- Day tabs (shared by calendar and map) ----------
+  function renderTabs(){
+    document.querySelectorAll('.daytabs').forEach(t=>{
+      t.innerHTML='';
+      const go=k=>{curDay=k;renderCal();renderMap()};
+      const ix=DK.indexOf(curDay);
+      const prev=el('button',{class:'arrow',type:'button','aria-label':'Previous day'},'‹');prev.disabled=ix===0;prev.onclick=()=>go(DK[ix-1]);
+      const next=el('button',{class:'arrow',type:'button','aria-label':'Next day'},'›');next.disabled=ix===DK.length-1;next.onclick=()=>go(DK[ix+1]);
+      const row=el('div',{class:'tabrow',role:'tablist'});
+      DAYS.forEach(d=>{const b=el('button',{role:'tab','aria-selected':d.key===curDay,type:'button'},'<b>'+d.short+'</b> '+d.md);b.onclick=()=>go(d.key);row.appendChild(b)});
+      t.append(prev,row,next);
+      const sel=row.querySelector('[aria-selected=true]');if(sel)row.scrollLeft=sel.offsetLeft-row.clientWidth/2+sel.clientWidth/2;
+    });
+  }
+
+  // ---------- Calendars ----------
+  function layout(items){ // side-by-side lanes for overlapping blocks
+    items.sort((a,b)=>toMin(a.start)-toMin(b.start)||toMin(b.end)-toMin(a.end));
+    let cluster=[],clusterEnd=-1;const out=[];
+    const flush=()=>{const lanes=[];cluster.forEach(it=>{let i=lanes.findIndex(e=>e<=toMin(it.start));if(i<0){i=lanes.length;lanes.push(0)}lanes[i]=toMin(it.end);it.lane=i});cluster.forEach(it=>{it.lanes=lanes.length;out.push(it)});cluster=[]};
+    items.forEach(it=>{if(cluster.length&&toMin(it.start)>=clusterEnd){flush();clusterEnd=-1}cluster.push(it);clusterEnd=Math.max(clusterEnd,toMin(it.end))});
+    if(cluster.length)flush();return out;
+  }
+  function place(b,it){
+    const top=(toMin(it.start)-START_H*60)/60*PX;const h=Math.max(24,(toMin(it.end)-toMin(it.start))/60*PX-2);
+    b.style.top=top+'px';b.style.height=h+'px';
+    const w=100/it.lanes;b.style.left='calc('+(it.lane*w)+'% + 3px)';b.style.width='calc('+w+'% - 6px)';b.style.right='auto';
+  }
+  function renderCal(){
+    renderTabs();
+    const axis=$('#axis'),ce=$('#col-events'),cm=$('#col-mono'),ad=$('#allday');
+    [axis,ce,cm].forEach(x=>{x.innerHTML='';x.style.setProperty('--hours',HOURS)});ad.innerHTML='';
+    for(let i=1;i<HOURS;i++){const h=(START_H+i)%24;const s=el('span',{},(h%12||12)+(h>=12?'p':'a'));s.style.top=(i*PX)+'px';axis.appendChild(s)}
+    const items=[];
+    RACE.filter(r=>r.day===curDay&&!r.nocal).forEach(r=>items.push({start:r.start,end:r.end,race:r}));
+    EVENTS.forEach(ev=>{const h=ev.days[curDay];if(!h||!added.has(key(ev,curDay)))return;
+      if(h===ALL||h===TBA){const c=el('button',{class:'chip',type:'button'},SUIT[ev.suit].s+' '+esc(ev.title)+' <i>'+(h===ALL?'24/7':'hrs TBA')+'</i>');c.onclick=()=>openCard(ev,curDay);ad.appendChild(c)}
+      else items.push({start:h[0],end:h[1],ev});
+    });
+    layout(items).forEach(it=>{
+      const b=el(it.ev?'button':'div',{class:'blk'+(it.race?' race'+(it.race.main?' main':''):''),type:'button'});
+      if(it.race)b.innerHTML='<b>'+esc(it.race.title)+'</b><span>'+it.race.series+' · '+fmt(it.race.start)+'</span>';
+      else{b.innerHTML='<b>'+SUIT[it.ev.suit].s+' '+esc(it.ev.title)+'</b><span>'+fmt(it.start)+' to '+fmt(it.end)+'</span>';b.onclick=()=>openCard(it.ev,curDay)}
+      place(b,it);ce.appendChild(b);
+    });
+    if(!items.length)ce.appendChild(el('div',{class:'cal-empty'},'Tap the calendar icon on a card to add it here.'));
+    if(!ad.children.length)ad.appendChild(el('span',{class:'ad-empty'},'All-day and TBA-hour events you add show here'));
+    const rs=rides.filter(r=>r.day===curDay).map(r=>({start:r.start,end:r.end,r}));
+    layout(rs).forEach(it=>{const r=it.r;const b=el('div',{class:'blk mono'});b.innerHTML='<b>'+esc(r.from)+' → '+esc(r.to)+'</b><span>'+fmt(r.start)+'</span>';const x=el('button',{class:'x','aria-label':'Remove ride'},'×');x.onclick=()=>{rides=rides.filter(q=>q.id!==r.id);store.set('rides',rides);renderCal()};b.appendChild(x);place(b,it);cm.appendChild(b)});
+    if(!rs.length)cm.appendChild(el('div',{class:'cal-empty'},'Add a ride from a monorail ticket below.'));
+  }
+
+  // ---------- Strip map ----------
+  function renderMap(){
+    renderTabs();
+    const W=1000,H=440,SY=200; // strip line y
+    const byLoc={};
+    EVENTS.forEach(ev=>{if(ev.days[curDay]&&ev.loc){(byLoc[ev.loc]=byLoc[ev.loc]||[]).push(ev)}});
+    const raceToday=RACE.filter(r=>r.day===curDay).length;
+    let svg='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Schematic map of the Las Vegas Strip, south on the left, north on the right">';
+    [['Tropicana',170],['Harmon',330],['Flamingo',460],['Spring Mtn / Sands',620],['Sahara',960]].forEach(([n,x])=>{svg+='<line x1="'+x+'" y1="40" x2="'+x+'" y2="'+(H-30)+'" class="m-street"/><text x="'+(x+4)+'" y="'+(H-12)+'" class="m-st">'+n+'</text>'});
+    svg+='<path d="M330 '+SY+' L620 '+SY+' L650 '+(SY+62)+' L650 '+(SY+80)+' L340 '+(SY+80)+' Z" class="m-track"/>';
+    svg+='<text x="500" y="'+(SY+98)+'" class="m-tracklbl">F1 CIRCUIT · KOVAL LN</text>';
+    svg+='<line x1="10" y1="'+SY+'" x2="990" y2="'+SY+'" class="m-strip"/><text x="14" y="'+(SY-8)+'" class="m-stripl">LAS VEGAS BLVD</text>';
+    svg+='<path d="M250 58 L405 58" class="m-tram"/><text x="252" y="50" class="m-traml">FREE ARIA EXPRESS TRAM</text>';
+    const st=[['MGM Grand',215,SY+140],['Horseshoe/Paris',430,SY+140],['Flamingo/Caesars',490,SY+140],['LINQ',540,SY+140],['LV Conv. Center',760,SY+162],['Westgate',860,SY+158],['SAHARA',960,SY+136]];
+    svg+='<polyline points="'+st.map(s=>s[1]+','+s[2]).join(' ')+'" class="m-mono"/>';
+    st.forEach((s,i)=>{svg+='<circle cx="'+s[1]+'" cy="'+s[2]+'" r="6" class="m-stn"/><text x="'+s[1]+'" y="'+(s[2]+(i%2?20:-11))+'" class="m-stnl">'+s[0]+'</text>'});
+    const ROW={nyny:1,aria:1,bellagio:1,mgm:1};
+    Object.entries(LOC).forEach(([k,L])=>{
+      const evs=byLoc[k]||[];const r=ROW[k]||0;
+      if(k==='circuit'){
+        if(!evs.length&&!raceToday)return;
+        svg+='<g class="m-pin on" data-loc="'+k+'" tabindex="0" role="button" aria-label="Circuit, race sessions today"><circle cx="480" cy="'+(SY+46)+'" r="15" class="m-dot race"/><text x="480" y="'+(SY+51)+'" class="m-n" style="fill:#2a1700">F1</text></g>';return}
+      const y=L.side==='w'?SY-38-r*50:SY+42+r*38;
+      const ly=L.side==='w'?y-20:y+30;
+      const active=evs.length>0;
+      svg+='<g class="m-pin'+(active?' on':'')+'" data-loc="'+k+'" tabindex="'+(active?0:-1)+'" role="button" aria-label="'+L.n+', '+evs.length+' events"><line x1="'+L.x+'" y1="'+SY+'" x2="'+L.x+'" y2="'+y+'" class="m-stem"/><circle cx="'+L.x+'" cy="'+y+'" r="'+(active?13:5)+'" class="m-dot"/>'+(active?'<text x="'+L.x+'" y="'+(y+5)+'" class="m-n">'+evs.length+'</text>':'')+'<text x="'+L.x+'" y="'+ly+'" class="m-hl">'+L.n.toUpperCase()+'</text></g>';
+    });
+    svg+='<text x="14" y="22" class="m-dir">← SOUTH</text><text x="986" y="22" class="m-dir" text-anchor="end">NORTH →</text><text x="560" y="22" class="m-dir" text-anchor="middle">WEST SIDE ↑ · EAST SIDE ↓</text></svg>';
+    $('#map-svg').innerHTML=svg;
+    document.querySelectorAll('#map-svg .m-pin.on').forEach(g=>{const go=()=>showLoc(g.dataset.loc);g.addEventListener('click',go);g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}})});
+    // south-to-north list
+    const list=$('#map-list');list.innerHTML='';
+    if(raceToday)byLoc.circuit=byLoc.circuit||[];
+    Object.entries(LOC).filter(([k])=>byLoc[k]&&(byLoc[k].length||k==='circuit')).sort((a,b)=>a[1].x-b[1].x).forEach(([k,L])=>{
+      const row=el('div',{class:'ml-row',id:'ml-'+k});
+      row.innerHTML='<div class="ml-loc"><b>'+esc(L.n)+'</b><span>'+(L.x<330?'South end':L.x<620?'Center Strip':'North end')+'</span></div>';
+      const chips=el('div',{class:'ml-chips'});
+      byLoc[k].forEach(ev=>{const c=el('button',{class:'chip',type:'button'},SUIT[ev.suit].s+' '+esc(ev.title)+' <i>'+hoursText(ev.days[curDay])+'</i>');c.onclick=()=>openCard(ev,curDay);chips.appendChild(c)});
+      if(k==='circuit'&&raceToday){const a=el('a',{class:'chip',href:'#races',style:'border-color:var(--orange)'},'🏁 '+raceToday+' track sessions <i>see On Track</i>');chips.appendChild(a)}
+      row.appendChild(chips);list.appendChild(row);
+    });
+    $('#map-day').textContent=dayOf(curDay).label+' '+dayOf(curDay).md;
+  }
+  function showLoc(k){const r=document.getElementById('ml-'+k);if(!r)return;document.querySelectorAll('.ml-row').forEach(x=>x.classList.remove('hl'));r.classList.add('hl');r.scrollIntoView({behavior:'auto',block:'nearest'})}
+
+  // ---------- Monorail ----------
+  function renderTickets(){
+    const g=$('#tickets');g.innerHTML='';
+    TICKETS.forEach(t=>{
+      const b=el('button',{class:'ticket'+(t.pick?' pick':''),type:'button'},'<span class="t-kicker">'+(t.pick?'BEST FOR RACE WEEK':'ADMIT ONE')+'</span><span class="t-name">'+t.name+'</span><span class="t-sub">'+t.sub+'</span><span class="t-price">'+t.price+'</span>');
+      b.onclick=()=>openTicket(t);g.appendChild(b);
+    });
+  }
+  function openTicket(t){
+    const p=el('div',{class:'pop'});
+    const opts=STATIONS.map(s=>'<option>'+esc(s)+'</option>').join('');
+    const dayOpts=DAYS.map(d=>'<option value="'+d.key+'"'+(d.key===curDay?' selected':'')+'>'+d.short+' '+d.md+'</option>').join('');
+    p.innerHTML='<div><div class="kick glow-blue">Monorail ticket</div><h3>'+t.name+'</h3></div>'+
+      '<dl class="logi"><dt>Price</dt><dd><b>'+t.price+'</b> online eTicket · '+t.paper+' paper at stations</dd><dt>Good for</dt><dd>'+t.sub+'. Clock starts at your first scan.</dd><dt>Buy at</dt><dd>tix.lvmonorail.com (cheaper), or machines at every station</dd><dt>Best for</dt><dd>'+t.best+'</dd><dt>Source</dt><dd><a class="src" href="https://www.lvmonorail.com/ticket-information/" target="_blank" rel="noopener">Las Vegas Monorail ↗</a> '+confBadge('High')+'</dd></dl>'+
+      '<div style="border-top:1px solid var(--line);padding-top:14px;display:grid;gap:10px"><b style="font-size:14px">Add a ride to your monorail calendar</b>'+
+      '<div class="row2"><label for="r-day">Day<select id="r-day">'+dayOpts+'</select></label><label for="r-time">Train time<input id="r-time" type="time" value="18:00"></label></div>'+
+      '<div class="row2"><label for="r-from">From<select id="r-from">'+opts+'</select></label><label for="r-to">To<select id="r-to">'+opts.replace('<option>Harrah','<option selected>Harrah')+'</select></label></div>'+
+      '<button class="btn blue" type="button" id="r-add">Add to calendar</button></div>';
+    overlay(p);
+    p.querySelector('#r-add').onclick=()=>{
+      const st=p.querySelector('#r-time').value||'18:00';const [h,m]=st.split(':').map(Number);const em=h*60+m+20;
+      const end=String(Math.floor(em/60)%24).padStart(2,'0')+':'+String(em%60).padStart(2,'0');
+      const r={id:Date.now(),day:p.querySelector('#r-day').value,start:st,end:end,from:p.querySelector('#r-from').value,to:p.querySelector('#r-to').value};
+      rides.push(r);store.set('rides',rides);curDay=r.day;closeLayer();renderCal();renderMap();toast('Monorail ride added');
+      document.getElementById('calendar').scrollIntoView({behavior:'auto'});
+    };
+  }
+
+  // ---------- Food ----------
+  const ICONS={
+    pizza:'<svg viewBox="0 0 64 64"><path d="M32 6 L58 52 Q32 62 6 52 Z" fill="#e8b450"/><path d="M8 50 Q32 60 56 50 L58 54 Q32 64 6 54 Z" fill="#b9772f"/><circle cx="32" cy="30" r="4" fill="#c9342c"/><circle cx="24" cy="42" r="4" fill="#c9342c"/><circle cx="40" cy="44" r="4" fill="#c9342c"/><circle cx="36" cy="36" r="2" fill="#4f9b4a"/><circle cx="27" cy="34" r="2" fill="#4f9b4a"/></svg>',
+    dumpling:'<svg viewBox="0 0 64 64"><path d="M8 40 Q32 4 56 40 Q32 54 8 40 Z" fill="#f2ead8"/><path d="M20 22 Q22 30 20 36 M28 16 Q30 26 28 36 M36 16 Q34 26 36 36 M44 22 Q42 30 44 36" stroke="#cdbf9f" stroke-width="2" fill="none" stroke-linecap="round"/><ellipse cx="32" cy="52" rx="24" ry="4" fill="#3a3f55"/></svg>',
+    burger:'<svg viewBox="0 0 64 64"><path d="M10 28 Q32 4 54 28 Z" fill="#d99a45"/><rect x="8" y="30" width="48" height="5" rx="2" fill="#5fae55"/><rect x="9" y="36" width="46" height="7" rx="3" fill="#7a4a2e"/><rect x="8" y="44" width="48" height="4" rx="2" fill="#e9c04a"/><path d="M10 49 H54 Q54 58 32 58 Q10 58 10 49 Z" fill="#d99a45"/></svg>',
+    bowl:'<svg viewBox="0 0 64 64"><path d="M14 22 Q20 10 26 22 M30 20 Q36 6 42 20" stroke="#cfd3e0" stroke-width="2" fill="none" opacity=".6"/><path d="M6 30 H58 Q56 54 32 54 Q8 54 6 30 Z" fill="#c9342c"/><path d="M10 30 Q20 24 30 30 Q40 24 54 30" stroke="#f0d36a" stroke-width="4" fill="none"/><circle cx="22" cy="28" r="3" fill="#5fae55"/><circle cx="42" cy="28" r="3" fill="#5fae55"/></svg>',
+    taco:'<svg viewBox="0 0 64 64"><path d="M6 46 Q32 0 58 46 Z" fill="#e8b450"/><path d="M12 42 Q20 26 30 30 Q38 22 52 42" stroke="#5fae55" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="26" cy="36" r="3" fill="#c9342c"/><circle cx="38" cy="34" r="3" fill="#c9342c"/></svg>',
+    croissant:'<svg viewBox="0 0 64 64"><path d="M6 42 Q10 20 32 18 Q54 20 58 42 Q48 36 44 44 Q38 32 32 34 Q26 32 20 44 Q16 36 6 42 Z" fill="#d99a45"/><path d="M20 44 Q24 30 32 30 Q40 30 44 44" stroke="#a96a2a" stroke-width="2" fill="none"/></svg>'
+  };
+  function renderFood(){
+    const g=$('#food-grid');g.innerHTML='';
+    FOOD.forEach(f=>{
+      const b=el('button',{class:'tile',type:'button',style:'--c:'+f.c},'<span class="hotel">'+esc(f.hotel)+'</span>'+ICONS[f.k]+'<span class="dish"><b>'+esc(f.name)+'</b><br>'+esc(f.dish)+'</span><span class="veg">VEGETARIAN</span>');
+      b.onclick=()=>{const p=el('div',{class:'pop'});p.innerHTML='<div><div class="kick veg">Vegetarian · '+esc(f.hotel)+'</div><h3>'+esc(f.name)+'</h3></div><div style="width:90px">'+ICONS[f.k]+'</div><dl class="logi"><dt>Order</dt><dd>'+esc(f.dish)+'</dd><dt>Where</dt><dd>'+esc(f.where)+'</dd><dt>Hours</dt><dd>Race-week hours vary. Check the hotel app.</dd><dt>Near</dt><dd>'+esc(f.near)+'</dd><dt>Sure?</dt><dd>'+confBadge(f.conf)+'</dd></dl>';overlay(p)};
+      g.appendChild(b);
+    });
+  }
+
+  // ---------- Race schedule blocks ----------
+  function renderRace(){
+    const g=$('#race-grid');g.innerHTML='';
+    DAYS.forEach(d=>{
+      const rs=RACE.filter(r=>r.day===d.key);if(!rs.length)return;
+      const col=el('div',{class:'race-day'});
+      col.innerHTML='<div class="rd-head"><span>'+d.label+'</span><b>'+d.md+'</b></div>'+rs.map(r=>
+        '<div class="rblock'+(r.series==='F1 Academy'?' acad':'')+(r.main?' main':'')+'"><span class="rt">'+fmt(r.start)+'<i>'+fmt(r.end)+'</i></span><span class="rn"><b>'+esc(r.title)+'</b><em>'+r.series+'</em></span></div>').join('');
+      g.appendChild(col);
+    });
+  }
+
+  renderTodos();renderDeck();renderTickets();renderFood();renderRace();renderCal();renderMap();
+  $('#cal-scroll').scrollTop=(10-START_H)*PX-10;
+})();
+</script>
+
+</body>
+</html>
