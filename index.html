@@ -392,7 +392,7 @@ section{scroll-margin-top:60px}
 .viewtog button{border:0;background:var(--panel);color:var(--mute);padding:9px 16px;font-family:var(--f-geo);font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
 .viewtog button[aria-pressed=true]{background:var(--fg);color:var(--black)}
 .elist{display:grid;gap:6px}
-.erow{position:relative;display:grid;grid-template-columns:64px 22px minmax(0,1fr) 40px;align-items:center;gap:8px;padding:10px 10px 10px 12px;border-radius:12px;background:var(--paper);color:var(--paper-ink);background-image:var(--noise);cursor:pointer;transition:transform .15s}
+.erow{position:relative;display:grid;grid-template-columns:64px 22px minmax(0,1fr) 34px 40px;align-items:center;gap:8px;padding:10px 10px 10px 12px;border-radius:12px;background:var(--paper);color:var(--paper-ink);background-image:var(--noise);cursor:pointer;transition:transform .15s}
 .erow:hover{transform:translateX(3px)}
 .erow[hidden]{display:none}
 .erow .et{display:grid;line-height:1.05;font-family:var(--f-index)}
@@ -414,6 +414,63 @@ section{scroll-margin-top:60px}
 .cal-h.cur{color:var(--fg)} .cal-h:not(.cur){color:var(--mute)}
 .daytabs .tabrow button.paired{border-color:var(--fg)}
 @media (max-width:760px){.allday{grid-template-columns:36px 1fr 1fr}.ad-lbl{font-size:7px}}
+
+/* ---------- v8: one-day calendar in site style ---------- */
+.gcal{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--panel)}
+.gcal-days{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}
+.gcal-days::-webkit-scrollbar{display:none}
+.gpane{flex:0 0 100%;scroll-snap-align:start;scroll-snap-stop:always;min-width:0;display:flex;flex-direction:column}
+.ghead{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--line)}
+.gdow{font-family:var(--f-neon);font-size:26px;line-height:1;color:var(--fg)}
+.gnum{font-family:var(--f-index);font-weight:700;font-size:28px;line-height:1;color:var(--fg)}
+.gdow.today{color:#fff;text-shadow:0 0 6px var(--orange),0 0 16px var(--orange)}
+.gnum.today{color:var(--orange)}
+.gsub{font-family:var(--f-geo);font-weight:600;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
+.gallday{display:flex;flex-direction:column;gap:4px;padding:8px 10px 8px 54px;border-bottom:1px solid var(--line)}
+.gchip{text-align:left;border:0;border-radius:6px;background:var(--red);color:#fff;font:600 12px var(--f-body);padding:5px 9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gchip i{font-style:normal;opacity:.8;margin-left:4px;font-weight:400}
+.gscroll{max-height:min(560px,58vh);overflow-y:auto;overscroll-behavior-y:contain;-webkit-overflow-scrolling:touch}
+.ggrid{position:relative;background:var(--panel)}
+.ghr{position:absolute;left:0;right:0;height:0;border-top:1px solid #1d1d24;margin-left:48px}
+.ghr span{position:absolute;right:calc(100% + 6px);top:-7px;font:500 11px var(--f-cond);letter-spacing:.06em;color:var(--mute);white-space:nowrap}
+.ggrid::before{content:"";position:absolute;top:0;bottom:0;left:48px;border-left:1px solid var(--line)}
+.gev{position:absolute;border:0;border-radius:8px;padding:5px 8px;text-align:left;overflow:hidden;font-family:var(--f-body);line-height:1.2;display:flex;flex-direction:column;gap:1px;box-shadow:0 0 0 1px var(--panel)}
+.gev b{font-size:13px;font-weight:600}
+.gev span{font-size:11px;opacity:.88}
+.gev.race{background:repeating-linear-gradient(45deg,#ffa53a 0 10px,#ffb354 10px 20px);color:#2a1700}
+.gev.race.acad{background:#c96a98;color:#fff}
+.gev.race.main{background:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),conic-gradient(#fff 25%,#111 0 50%,#fff 0 75%,#111 0) 0 0/14px 14px;color:#fff;box-shadow:0 0 0 2px var(--orange),0 0 14px rgba(255,165,58,.5)}
+.gev.mine{background:var(--red);color:#fff;box-shadow:0 0 0 1px var(--panel),0 0 12px rgba(255,59,48,.35)}
+.gnow{position:absolute;left:44px;right:0;height:2px;background:var(--orange);z-index:3;box-shadow:0 0 8px var(--orange)}
+.gnow::before{content:"";position:absolute;left:-5px;top:-5px;width:12px;height:12px;border-radius:50%;background:var(--orange)}
+.gempty{position:absolute;top:14px;left:60px;right:10px;font:12px var(--f-body);color:var(--mute)}
+/* stars + my events */
+.star-btn{position:absolute;top:48px;right:8px;width:34px;height:34px;border-radius:9px;border:1px solid rgba(0,0,0,.18);background:rgba(255,255,255,.55);display:grid;place-items:center;color:var(--paper-ink);z-index:2}
+.star-btn.solo{top:8px}
+.star-btn svg{width:18px;height:18px}
+.star-btn.on{background:#f2c94c;border-color:#d9a91f;color:#5a3d00}
+.star-btn.row{position:static}
+.modetabs{display:flex;gap:6px;margin:6px 0 4px;flex-wrap:wrap}
+.modetabs button{border:1px solid var(--line);background:var(--panel);color:var(--fg);border-radius:999px;padding:9px 16px;font-family:var(--f-geo);font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.modetabs button[aria-selected=true]{background:#f2c94c;border-color:#f2c94c;color:#2a1d00}
+.mine-empty{margin-top:22px;border:1px dashed #3a3846;border-radius:14px;padding:22px;text-align:center;display:grid;gap:6px;color:var(--mute);font-size:14px}
+.mine-empty b{color:var(--fg);font-family:var(--f-roman);font-size:18px}
+.swipe-hint{text-align:center;font-size:12px;color:var(--mute);margin:8px 0 0}
+
+/* ---------- v9: toned-down calendar ---------- */
+.gdow{font-family:var(--f-roman);font-weight:700;font-size:22px;letter-spacing:.06em;color:var(--fg)}
+.gdow.today{color:#e3bd8c;text-shadow:none}
+.gnum.today{color:#e3bd8c}
+.gev{border-left:3px solid transparent;box-shadow:none}
+.gev.mine{background:#2d1d1e;color:#f0d9d6;border-left-color:#c26a63;box-shadow:none}
+.gev.race{background:#2b2219;color:#e8c79c;border-left-color:#b98a4e}
+.gev.race.acad{background:#2c1d25;color:#e4b3cb;border-left-color:#b0708f}
+.gev.race.main{background:linear-gradient(rgba(20,16,12,.82),rgba(20,16,12,.82)),conic-gradient(#fff 25%,#111 0 50%,#fff 0 75%,#111 0) 0 0/14px 14px;color:#f3e3cc;border-left-color:#b98a4e;box-shadow:none}
+.gev span{opacity:.75}
+.gchip{background:#2d1d1e;color:#f0d9d6;border-left:3px solid #c26a63}
+.gnow{background:#c9a477;box-shadow:none;height:1.5px}
+.gnow::before{background:#c9a477;width:10px;height:10px;left:-4px;top:-4px}
+.calkey i{opacity:.75}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}html{scroll-behavior:auto}}
 </style>
 </head>
@@ -441,6 +498,7 @@ section{scroll-margin-top:60px}
   <div class="wrap">
     <a href="#calendar" style="--c:var(--fg)"><i></i>Calendar</a>
     <a href="#deck" style="--c:var(--red)"><i></i>The deck</a>
+    <a href="#deck" id="nav-mine" style="--c:#f2c94c"><i></i>★ My events</a>
     <a href="#todo" style="--c:var(--orange)"><i></i>To-do</a>
     <a href="#map" style="--c:#ff3bd4"><i></i>Map</a>
     <a href="#monorail" style="--c:var(--blue)"><i></i>Monorail</a>
@@ -452,22 +510,15 @@ section{scroll-margin-top:60px}
 <main>
   <section id="calendar" class="wrap">
     <div class="hs">
-      <div class="h-nyny"><h2><span class="o">Your</span>Weekend</h2><div class="sub">Two days at a glance</div></div>
-      <p class="hint">Race sessions are already on in orange. Use the arrows to step through the week.</p>
+      <div class="h-nyny"><h2><span class="o">Your</span>Weekend</h2><div class="sub">One day at a time</div></div>
+      <p class="hint">Race sessions are already on in amber. Swipe sideways or use the arrows to change days.</p>
     </div>
     <div class="daytabs" id="daytabs"></div>
-    <div class="calkey"><span><i style="--c:var(--orange)"></i>Race sessions (always on)</span><span><i class="chk"></i>Grand Prix</span><span><i style="--c:var(--red)"></i>Events you add</span></div>
-    <div class="cals">
-      <div class="cal-h"></div>
-      <div class="cal-h" id="ch-a"></div>
-      <div class="cal-h" id="ch-b"></div>
-      <div class="allday"><span class="ad-lbl">All day<br>/ TBA</span><div class="ad-cell" id="ad-a"></div><div class="ad-cell" id="ad-b"></div></div>
-      <div class="cal-scroll" id="cal-scroll">
-        <div class="axis" id="axis"></div>
-        <div class="col" id="col-a"></div>
-        <div class="col" id="col-b"></div>
-      </div>
+    <div class="calkey"><span><i style="--c:#b98a4e"></i>Race sessions (always on)</span><span><i class="chk"></i>Grand Prix</span><span><i style="--c:#c26a63"></i>Events you add</span><span><i style="--c:#b0708f"></i>F1 Academy</span></div>
+    <div class="gcal">
+      <div class="gcal-days" id="gcal-days" aria-label="Day calendar, swipe left or right for other days"></div>
     </div>
+    <p class="swipe-hint">Swipe left or right to change days</p>
     <a class="add-below" href="#deck">Add events to your calendar below. <span aria-hidden="true">↓</span></a>
   </section>
 
@@ -477,6 +528,7 @@ section{scroll-margin-top:60px}
       <p class="hint">Tap an event to flip its card. Tap the calendar icon to add it to your weekend. Each day can switch to List for a quick skim.</p>
     </div>
     <div class="legend ckey"><span>Dot on each card =</span><span class="conf conf-high">High</span><span class="conf conf-medium">Medium</span><span class="conf conf-low">Low</span><span>confidence</span></div>
+    <div class="modetabs" id="modetabs" role="tablist" aria-label="Which events"></div>
     <div id="deck-days"></div>
   </section>
 
@@ -752,28 +804,42 @@ section{scroll-margin-top:60px}
       cb.addEventListener('click',e=>{e.stopPropagation();toggleAdd(ev,dk)});
       c.appendChild(cb);
     }
+    c.appendChild(starBtn(ev,'star-btn'+(dk?'':' solo')));
     const open=()=>openCard(ev,dk);
     c.addEventListener('click',open);c.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open()}});
     return c;
   }
   const sortKey=h=>h===ALL?3000:h===TBA?3001:toMin(h[0]);
   function renderDeck(){
-    const wrap=$('#deck-days');wrap.innerHTML='';
+    const wrap=$('#deck-days');wrap.innerHTML='';renderModeTabs();
+    const pick=e=>mode!=='mine'||stars.has(e.id);
+    if(mode==='mine'&&!stars.size){wrap.appendChild(el('div',{class:'mine-empty'},'<b>No starred events yet.</b><span>Tap the ☆ on any card or list row and it shows up here, sorted by day.</span>'));return}
     DAYS.forEach(d=>{
-      const evs=EVENTS.filter(e=>e.days[d.key]).sort((a,b)=>{const x=sortKey(a.days[d.key]),y=sortKey(b.days[d.key]);return x-y||a.title.localeCompare(b.title)});
+      const evs=EVENTS.filter(e=>e.days[d.key]&&pick(e)).sort((a,b)=>{const x=sortKey(a.days[d.key]),y=sortKey(b.days[d.key]);return x-y||a.title.localeCompare(b.title)});
       if(!evs.length)return;
-      wrap.appendChild(el('div',{class:'day-label'},'<span class="dow '+d.neon+'">'+d.short+'</span><span class="date">'+d.label.toUpperCase()+' · '+d.md+' · '+evs.length+(vOf(d.key)==='list'?' EVENTS':' CARDS')+'</span>'));
+      wrap.appendChild(el('div',{class:'day-label'},'<span class="dow '+d.neon+'">'+d.short+'</span><span class="date">'+d.label.toUpperCase()+' · '+d.md+' · '+evs.length+(vOf(d.key)==='list'?' EVENT':' CARD')+(evs.length===1?'':'S')+'</span>'));
       wrap.appendChild(viewTog(d.key));
       if(vOf(d.key)==='list'){renderList(wrap,evs,d.key);return}
       const grid=el('div',{class:'deck'+(openDays.has(d.key)?'':' clamped'),'data-day':d.key});evs.forEach(ev=>grid.appendChild(makeCard(ev,d.key)));wrap.appendChild(grid);
       const more=el('button',{class:'see-more',type:'button','data-day':d.key});more.onclick=()=>{openDays.has(d.key)?openDays.delete(d.key):openDays.add(d.key);if(!openDays.has(d.key)){grid.classList.add('clamped');const lbl=grid.previousElementSibling;lbl.scrollIntoView({block:'start'})}else grid.classList.remove('clamped');clampDecks()};wrap.appendChild(more);
     });
+    const aces=ACES.filter(pick);
+    if(!aces.length){clampDecks();return}
     wrap.appendChild(el('div',{class:'day-label'},'<span class="dow glow-purple">Aces</span><span class="date">WILD CARDS · CLOSED, UNCONFIRMED OR 21+</span>'));
     wrap.appendChild(viewTog('aces'));
-    if(vOf('aces')==='list'){renderList(wrap,ACES,null)}else{const g=el('div',{class:'deck'});ACES.forEach(ev=>g.appendChild(makeCard(ev,null)));wrap.appendChild(g)}
+    if(vOf('aces')==='list'){renderList(wrap,aces,null)}else{const g=el('div',{class:'deck'});aces.forEach(ev=>g.appendChild(makeCard(ev,null)));wrap.appendChild(g)}
     clampDecks();
   }
   const openDays=new Set();
+  const stars=new Set(store.get('stars',[]));
+  let mode=store.get('mode','all');
+  const starSvg=on=>'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.8 6 6.5.7-4.9 4.4 1.4 6.4L12 17l-5.8 3.3 1.4-6.4L2.7 9.5l6.5-.7z" fill="'+(on?'currentColor':'none')+'" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>';
+  function starBtn(ev,cls){const on=stars.has(ev.id);const b=el('button',{type:'button',class:cls+(on?' on':''),'aria-pressed':on,'aria-label':(on?'Unstar ':'Star ')+ev.title},starSvg(on));b.addEventListener('click',e=>{e.stopPropagation();toggleStar(ev)});return b}
+  function toggleStar(ev){if(stars.has(ev.id)){stars.delete(ev.id);toast('Removed from My events')}else{stars.add(ev.id);toast('★ Added to My events')}store.set('stars',[...stars]);renderDeck();renderCal()}
+  function renderModeTabs(){
+    const t=$('#modetabs');t.innerHTML='';
+    [['all','All events'],['mine','★ My events ('+stars.size+')']].forEach(([m,l])=>{const b=el('button',{type:'button',role:'tab','aria-selected':mode===m},l);b.onclick=()=>{mode=m;store.set('mode',mode);renderDeck()};t.appendChild(b)});
+  }
   const views=store.get('views',{});
   const vOf=k=>views[k]||'cards';
   function viewTog(k){
@@ -790,6 +856,7 @@ section{scroll-margin-top:60px}
       const time=!ev.days?'<b>Wild</b><i>card</i>':h===ALL?'<b>24/7</b><i>'+rangeMd(ev)+'</i>':h===TBA?'<b>TBA</b><i>'+rangeMd(ev)+'</i>':'<b>'+fmt(h[0])+'</b><i>to '+fmt(h[1])+'</i>';
       const row=el('div',{class:'erow',role:'button',tabindex:'0','aria-label':ev.title+(dk?', '+dayOf(dk).label:'')});
       row.innerHTML='<span class="et">'+time+'</span><span class="es '+s.c+'">'+s.s+'</span><span class="en"><b>'+esc(ev.title)+'</b><span>'+esc(ev.venue)+'</span><em>'+esc(ev.range)+'</em></span><span class="cdot conf-'+ev.conf.toLowerCase()+'" title="'+ev.conf+' confidence"></span>';
+      row.appendChild(starBtn(ev,'star-btn row'));
       if(dk){const on=added.has(key(ev,dk));const cb=el('button',{class:'cal-btn'+(on?' on':''),'aria-label':(on?'Remove ':'Add ')+ev.title+' to calendar','aria-pressed':on},calIcon);cb.addEventListener('click',e=>{e.stopPropagation();toggleAdd(ev,dk)});row.appendChild(cb)}
       const go=()=>openCard(ev,dk);row.addEventListener('click',go);row.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}});
       if(!open&&i>=LIM)row.hidden=true;
@@ -847,13 +914,14 @@ section{scroll-margin-top:60px}
         '<dl class="logi">'+rows.map(r=>'<dt>'+r[0]+'</dt><dd>'+r[1]+'</dd>').join('')+'</dl>'+
         (ev.note?'<div class="heads"><b>Heads up</b>'+esc(ev.note)+'</div>':'')+
         '<div class="srcs">'+ev.src.map(x=>x[1]==='#'?'<span class="src" style="color:var(--paper-mute)">'+esc(x[0])+'</span>':'<a class="src" href="'+x[1]+'" target="_blank" rel="noopener">'+esc(x[0])+' ↗</a>').join('')+'</div>'+
-        '<div class="back-actions">'+(dk?'<button class="btn add" type="button">'+(added.has(key(ev,dk))?'Remove from calendar':'Add '+dayOf(dk).short+' to calendar')+'</button>':'')+'<button class="btn ghost flipback" type="button">Flip back</button></div>'+
+        '<div class="back-actions">'+(dk?'<button class="btn add" type="button">'+(added.has(key(ev,dk))?'Remove from calendar':'Add '+dayOf(dk).short+' to calendar')+'</button>':'')+'<button class="btn ghost starb" type="button">'+(stars.has(ev.id)?'★ Starred':'☆ Star')+'</button><button class="btn ghost flipback" type="button">Flip back</button></div>'+
       '</div></div></div>';
     overlay(f);
     const inner=f.querySelector('.flip-inner');
     requestAnimationFrame(()=>setTimeout(()=>inner.classList.add('turned'),140));
     f.querySelector('.flipback').onclick=()=>inner.classList.toggle('turned');
     f.querySelector('.face.front').onclick=()=>inner.classList.add('turned');
+    f.querySelector('.starb').onclick=e=>{toggleStar(ev);e.target.textContent=stars.has(ev.id)?'★ Starred':'☆ Star'};
     const ab=f.querySelector('.add');if(ab)ab.onclick=e=>{toggleAdd(ev,dk);e.target.textContent=added.has(key(ev,dk))?'Remove from calendar':'Add '+dayOf(dk).short+' to calendar'};
   }
 
@@ -866,7 +934,7 @@ section{scroll-margin-top:60px}
       const prev=el('button',{class:'arrow',type:'button','aria-label':'Previous day'},'‹');prev.disabled=ix===0;prev.onclick=()=>go(DK[ix-1]);
       const next=el('button',{class:'arrow',type:'button','aria-label':'Next day'},'›');next.disabled=ix===DK.length-1;next.onclick=()=>go(DK[ix+1]);
       const row=el('div',{class:'tabrow',role:'tablist'});
-      const pd=pairDays();DAYS.forEach(d=>{const b=el('button',{role:'tab','aria-selected':d.key===curDay,type:'button',class:(t.id==='daytabs'&&d.key!==curDay&&pd.includes(d.key))?'paired':''},'<b>'+d.short+'</b> '+d.md);b.onclick=()=>go(d.key);row.appendChild(b)});
+      DAYS.forEach(d=>{const b=el('button',{role:'tab','aria-selected':d.key===curDay,type:'button',class:''},'<b>'+d.short+'</b> '+d.md);b.onclick=()=>go(d.key);row.appendChild(b)});
       t.append(prev,row,next);
       const sel=row.querySelector('[aria-selected=true]');if(sel)row.scrollLeft=sel.offsetLeft-row.clientWidth/2+sel.clientWidth/2;
     });
@@ -885,30 +953,47 @@ section{scroll-margin-top:60px}
     b.style.top=top+'px';b.style.height=h+'px';
     const w=100/it.lanes;b.style.left='calc('+(it.lane*w)+'% + 3px)';b.style.width='calc('+w+'% - 6px)';b.style.right='auto';
   }
-  function pairDays(){const ix=DK.indexOf(curDay);const i=Math.min(ix,DK.length-2);return [DK[i],DK[i+1]]}
+  const GPX=56,GUT=54;
+  const lbl=h=>(h%12||12)+' '+(h>=12&&h<24?'PM':'AM');
+  function vegasNow(){const f=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Los_Angeles',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date());const g=t=>f.find(x=>x.type===t).value;return {key:g('year')+'-'+g('month')+'-'+g('day'),h:+g('hour')%24,m:+g('minute')}}
+  let syncing=false,lastTop=null,calBuilt=false;
   function renderCal(){
     renderTabs();
-    const axis=$('#axis');axis.innerHTML='';axis.style.setProperty('--hours',HOURS);
-    for(let i=1;i<HOURS;i++){const h=(START_H+i)%24;const s=el('span',{},(h%12||12)+(h>=12?'p':'a'));s.style.top=(i*PX)+'px';axis.appendChild(s)}
-    pairDays().forEach((dk,n)=>{
-      const sfx=n?'b':'a',col=$('#col-'+sfx),ad=$('#ad-'+sfx),hd=$('#ch-'+sfx),d=dayOf(dk);
-      col.innerHTML='';col.style.setProperty('--hours',HOURS);ad.innerHTML='';
-      hd.className='cal-h'+(dk===curDay?' cur':'');
-      hd.innerHTML='<span class="dot" style="--c:'+(RACE.some(r=>r.day===dk)?'var(--orange)':'var(--red)')+'"></span><span class="dd">'+d.short+' '+d.md+'</span>';
+    const wrap=$('#gcal-days');
+    const prevTop=lastTop!==null?lastTop:(10-START_H)*GPX-8;
+    wrap.innerHTML='';
+    const now=vegasNow();
+    DAYS.forEach(d=>{
+      const dk=d.key,pane=el('div',{class:'gpane','data-day':dk});
+      const rc=RACE.filter(r=>r.day===dk).length;
+      pane.innerHTML='<div class="ghead"><span class="gdow'+(now.key===dk?' today':'')+'">'+d.short.toUpperCase()+'</span><span class="gnum'+(now.key===dk?' today':'')+'">'+d.md.split('/')[1]+'</span><span class="gsub">'+d.label+', Nov '+d.md.split('/')[1]+(rc?' · '+rc+' track sessions':'')+'</span></div>';
+      const ad=el('div',{class:'gallday'});
+      EVENTS.forEach(ev=>{const h=ev.days[dk];if(h&&(h===ALL||h===TBA)&&added.has(key(ev,dk))){const c=el('button',{class:'gchip',type:'button'},(stars.has(ev.id)?'★ ':'')+esc(ev.title)+' <i>'+(h===ALL?'24/7':'hours TBA')+'</i>');c.onclick=()=>openCard(ev,dk);ad.appendChild(c)}});
+      if(ad.children.length)pane.appendChild(ad);
+      const sc=el('div',{class:'gscroll'}),grid=el('div',{class:'ggrid'});
+      grid.style.height=(HOURS*GPX)+'px';
+      for(let i=0;i<HOURS;i++){const h=START_H+i;const row=el('div',{class:'ghr'});row.style.top=(i*GPX)+'px';if(i)row.innerHTML='<span>'+lbl(h)+'</span>';grid.appendChild(row)}
       const items=[];
       RACE.filter(r=>r.day===dk&&!r.nocal).forEach(r=>items.push({start:r.start,end:r.end,race:r}));
-      EVENTS.forEach(ev=>{const h=ev.days[dk];if(!h||!added.has(key(ev,dk)))return;
-        if(h===ALL||h===TBA){const c=el('button',{class:'chip',type:'button'},SUIT[ev.suit].s+' '+esc(ev.title)+' <i>'+(h===ALL?'24/7':'TBA')+'</i>');c.onclick=()=>openCard(ev,dk);ad.appendChild(c)}
-        else items.push({start:h[0],end:h[1],ev});
-      });
+      EVENTS.forEach(ev=>{const h=ev.days[dk];if(h&&h!==ALL&&h!==TBA&&added.has(key(ev,dk)))items.push({start:h[0],end:h[1],ev})});
       layout(items).forEach(it=>{
-        const b=el(it.ev?'button':'div',{class:'blk'+(it.race?' race'+(it.race.main?' main':''):''),type:'button'});
-        if(it.race)b.innerHTML='<b>'+esc(it.race.title)+'</b><span>'+it.race.series+' · '+fmt(it.race.start)+'</span>';
-        else{b.innerHTML='<b>'+SUIT[it.ev.suit].s+' '+esc(it.ev.title)+'</b><span>'+fmt(it.start)+' to '+fmt(it.end)+'</span>';b.onclick=()=>openCard(it.ev,dk)}
-        place(b,it);col.appendChild(b);
+        const b=el('button',{type:'button',class:'gev'+(it.race?' race'+(it.race.main?' main':'')+(it.race.series==='F1 Academy'?' acad':''):' mine')});
+        const top=(toMin(it.start)-START_H*60)/60*GPX,hgt=Math.max(22,(toMin(it.end)-toMin(it.start))/60*GPX-2);
+        b.style.top=top+'px';b.style.height=hgt+'px';
+        b.style.left='calc('+GUT+'px + (100% - '+(GUT+6)+'px) * '+(it.lane/it.lanes)+')';b.style.width='calc((100% - '+(GUT+6)+'px) / '+it.lanes+' - 3px)';
+        if(it.race){b.innerHTML='<b>'+esc(it.race.title)+'</b><span>'+it.race.series+' · '+fmt(it.race.start)+' to '+fmt(it.race.end)+'</span>';b.onclick=()=>{location.hash='';document.getElementById('races').scrollIntoView()}}
+        else{b.innerHTML='<b>'+(stars.has(it.ev.id)?'★ ':'')+esc(it.ev.title)+'</b><span>'+esc(it.ev.venue)+'</span><span>'+fmt(it.start)+' to '+fmt(it.end)+'</span>';b.onclick=()=>openCard(it.ev,dk)}
+        grid.appendChild(b);
       });
-      if(!items.length)col.appendChild(el('div',{class:'cal-empty'},'Tap the calendar icon on a card to add it here.'));
+      if(now.key===dk){const mm=now.h*60+now.m-START_H*60;if(mm>=0&&mm<=HOURS*60){const ln=el('div',{class:'gnow'});ln.style.top=(mm/60*GPX)+'px';grid.appendChild(ln)}}
+      if(!items.length)grid.appendChild(el('div',{class:'gempty'},'Nothing added yet. Tap the calendar icon on an event below.'));
+      sc.appendChild(grid);pane.appendChild(sc);wrap.appendChild(pane);
+      sc.addEventListener('scroll',()=>{if(syncing)return;syncing=true;lastTop=sc.scrollTop;wrap.querySelectorAll('.gscroll').forEach(o=>{if(o!==sc)o.scrollTop=sc.scrollTop});requestAnimationFrame(()=>syncing=false)});
     });
+    wrap.querySelectorAll('.gscroll').forEach(o=>o.scrollTop=prevTop);
+    wrap.scrollLeft=DK.indexOf(curDay)*wrap.clientWidth;
+    if(!calBuilt){calBuilt=true;let t;wrap.addEventListener('scroll',()=>{clearTimeout(t);t=setTimeout(()=>{const i=Math.round(wrap.scrollLeft/wrap.clientWidth);const k=DK[i];if(k&&k!==curDay){curDay=k;renderTabs();renderMap()}},90)});
+      window.addEventListener('resize',()=>{wrap.scrollLeft=DK.indexOf(curDay)*wrap.clientWidth});}
   }
 
   // ---------- Strip map ----------
@@ -1004,8 +1089,8 @@ section{scroll-margin-top:60px}
     });
   }
 
+  document.getElementById('nav-mine').addEventListener('click',()=>{mode='mine';store.set('mode',mode);renderDeck()});
   renderTodos();renderDeck();renderTickets();renderFood();renderRace();renderCal();renderMap();
-  $('#cal-scroll').scrollTop=(10-START_H)*PX-10;
 })();
 </script>
 
