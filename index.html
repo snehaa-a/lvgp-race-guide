@@ -111,7 +111,7 @@ section{padding-block:56px 6px}
 /* ---------- The deck ---------- */
 .legend{display:flex;flex-wrap:wrap;gap:16px;font-size:12px;color:var(--mute);margin-bottom:6px;font-family:var(--f-geo);letter-spacing:.08em;text-transform:uppercase}
 .legend b{font-size:15px;margin-right:5px}
-.day-label{display:flex;align-items:baseline;gap:12px;margin:34px 0 14px}
+.day-label{display:flex;align-items:baseline;gap:12px;margin:34px 0 10px}
 .day-label .dow{font-family:var(--f-neon);font-size:30px;line-height:1}
 .day-label .date{font-family:var(--f-geo);font-weight:600;font-size:12px;letter-spacing:.24em;color:var(--mute)}
 .deck{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:22px 18px;padding-inline:4px}
@@ -244,8 +244,9 @@ button.blk{font:inherit;font-size:12px;cursor:pointer}
 .blk.race{background:repeating-linear-gradient(45deg,#ffa53a 0 10px,#ffb354 10px 20px)}
 .blk.race.main{background:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),conic-gradient(#fff 25%,#111 0 50%,#fff 0 75%,#111 0) 0 0/14px 14px;color:#fff;text-shadow:0 1px 3px #000,0 0 6px #000;box-shadow:0 0 0 2px var(--orange),0 0 18px rgba(255,165,58,.6)}
 .blk span{display:block;opacity:.85;font-size:11px}
-.allday{grid-column:1/-1;display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding:9px 12px;border-bottom:1px solid var(--line);min-height:42px}
-.allday::before{content:"ALL DAY / TBA";font-family:var(--f-geo);font-weight:600;font-size:10px;letter-spacing:.2em;color:var(--mute);margin-right:4px}
+.allday{grid-column:1/-1;display:grid;grid-template-columns:44px 1fr 1fr;padding:0!important;align-items:stretch;}
+.allday-old{display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding:9px 12px;border-bottom:1px solid var(--line);min-height:42px}
+.allday-old::before{content:"ALL DAY / TBA";font-family:var(--f-geo);font-weight:600;font-size:10px;letter-spacing:.2em;color:var(--mute);margin-right:4px}
 .ad-empty{font-size:12px;color:var(--mute)}
 .chip{border:1px solid var(--line);background:var(--panel-2);border-radius:999px;padding:5px 11px;font-size:12px;color:var(--fg);text-align:left}
 .chip i{font-style:normal;color:var(--mute);margin-left:4px}
@@ -383,6 +384,36 @@ section{scroll-margin-top:60px}
 .promo svg{width:18px;height:18px;flex:none;color:#d98bb8}
 .promo b{color:var(--fg);font-weight:600}
 .promo:hover b{color:#d98bb8;text-decoration:underline}
+.add-below{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:14px;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:var(--fg);text-decoration:none;font-family:var(--f-geo);font-weight:600;font-size:15px;letter-spacing:.03em;text-align:center}
+.add-below span{color:var(--red)}
+.add-below:hover{border-color:var(--red)}
+
+.viewtog{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:0 0 14px}
+.viewtog button{border:0;background:var(--panel);color:var(--mute);padding:9px 16px;font-family:var(--f-geo);font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.viewtog button[aria-pressed=true]{background:var(--fg);color:var(--black)}
+.elist{display:grid;gap:6px}
+.erow{position:relative;display:grid;grid-template-columns:64px 22px minmax(0,1fr) 40px;align-items:center;gap:8px;padding:10px 10px 10px 12px;border-radius:12px;background:var(--paper);color:var(--paper-ink);background-image:var(--noise);cursor:pointer;transition:transform .15s}
+.erow:hover{transform:translateX(3px)}
+.erow[hidden]{display:none}
+.erow .et{display:grid;line-height:1.05;font-family:var(--f-index)}
+.erow .et b{font-size:16px}
+.erow .et i{font-style:normal;font-family:var(--f-body);font-size:11px;color:var(--paper-mute);margin-top:2px}
+.erow .es{font-size:20px;text-align:center}
+.erow .es.red{color:#c9342c}
+.erow .en{min-width:0;display:grid;gap:2px}
+.erow .en b{font-family:var(--f-hand);font-size:19px;font-weight:700;line-height:1.1}
+.erow .en span{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--paper-mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.erow .cdot{position:absolute;left:5px;top:50%;bottom:auto;width:4px;height:60%;transform:translateY(-50%);border-radius:3px}
+.erow .cal-btn{position:static;justify-self:end}
+.elist .promo{margin:4px 0}
+.erow .en em{font-style:normal;font-size:11px;color:var(--paper-mute)}
+.ad-lbl{font-family:var(--f-geo);font-weight:600;font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);padding:8px 4px;line-height:1.3;text-align:right}
+.ad-cell{border-left:1px solid var(--line);padding:7px;display:flex;flex-wrap:wrap;gap:5px;align-content:flex-start;min-width:0}
+.ad-cell .chip{font-size:11px;padding:4px 8px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cal-h .dd{font-family:var(--f-cond);font-weight:700;font-size:15px;letter-spacing:.06em}
+.cal-h.cur{color:var(--fg)} .cal-h:not(.cur){color:var(--mute)}
+.daytabs .tabrow button.paired{border-color:var(--fg)}
+@media (max-width:760px){.allday{grid-template-columns:36px 1fr 1fr}.ad-lbl{font-size:7px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}html{scroll-behavior:auto}}
 </style>
 </head>
@@ -408,9 +439,9 @@ section{scroll-margin-top:60px}
 
 <nav class="strip" aria-label="Sections">
   <div class="wrap">
-    <a href="#todo" style="--c:var(--orange)"><i></i>To-do</a>
-    <a href="#deck" style="--c:var(--red)"><i></i>The deck</a>
     <a href="#calendar" style="--c:var(--fg)"><i></i>Calendar</a>
+    <a href="#deck" style="--c:var(--red)"><i></i>The deck</a>
+    <a href="#todo" style="--c:var(--orange)"><i></i>To-do</a>
     <a href="#map" style="--c:#ff3bd4"><i></i>Map</a>
     <a href="#monorail" style="--c:var(--blue)"><i></i>Monorail</a>
     <a href="#food" style="--c:#7fd18b"><i></i>Food</a>
@@ -419,6 +450,36 @@ section{scroll-margin-top:60px}
 </nav>
 
 <main>
+  <section id="calendar" class="wrap">
+    <div class="hs">
+      <div class="h-nyny"><h2><span class="o">Your</span>Weekend</h2><div class="sub">Two days at a glance</div></div>
+      <p class="hint">Race sessions are already on in orange. Use the arrows to step through the week.</p>
+    </div>
+    <div class="daytabs" id="daytabs"></div>
+    <div class="calkey"><span><i style="--c:var(--orange)"></i>Race sessions (always on)</span><span><i class="chk"></i>Grand Prix</span><span><i style="--c:var(--red)"></i>Events you add</span></div>
+    <div class="cals">
+      <div class="cal-h"></div>
+      <div class="cal-h" id="ch-a"></div>
+      <div class="cal-h" id="ch-b"></div>
+      <div class="allday"><span class="ad-lbl">All day<br>/ TBA</span><div class="ad-cell" id="ad-a"></div><div class="ad-cell" id="ad-b"></div></div>
+      <div class="cal-scroll" id="cal-scroll">
+        <div class="axis" id="axis"></div>
+        <div class="col" id="col-a"></div>
+        <div class="col" id="col-b"></div>
+      </div>
+    </div>
+    <a class="add-below" href="#deck">Add events to your calendar below. <span aria-hidden="true">↓</span></a>
+  </section>
+
+  <section id="deck" class="wrap">
+    <div class="hs">
+      <div class="h-bellagio"><h2 class="glow-red">The Deck</h2><div class="sub">RACE WEEK</div></div>
+      <p class="hint">Tap an event to flip its card. Tap the calendar icon to add it to your weekend. Each day can switch to List for a quick skim.</p>
+    </div>
+    <div class="legend ckey"><span>Dot on each card =</span><span class="conf conf-high">High</span><span class="conf conf-medium">Medium</span><span class="conf conf-low">Low</span><span>confidence</span></div>
+    <div id="deck-days"></div>
+  </section>
+
   <section id="todo" class="wrap todo">
     <div class="hs">
       <div class="h-cosmo"><h2 class="glow-orange">Before you go</h2><div class="sub">of race week</div></div>
@@ -431,41 +492,6 @@ section{scroll-margin-top:60px}
       </form>
       <ul id="todo-list"></ul>
       <div class="count" id="todo-count"></div>
-    </div>
-  </section>
-
-  <section id="deck" class="wrap">
-    <div class="hs">
-      <div class="h-bellagio"><h2 class="glow-red">The Deck</h2><div class="sub">RACE WEEK</div></div>
-      <p class="hint">Tap a card to flip it. Tap the calendar icon to add it to your weekend.</p>
-    </div>
-    <div class="legend">
-      <span><b class="glow-red">♥</b>Driver appearance</span>
-      <span><b class="glow-red">♦</b>Networking / women in F1</span>
-      <span><b>♠</b>Team fan zone</span>
-      <span><b>♣</b>Pop-up / merch</span>
-    </div>
-    <div class="legend ckey"><span>Dot on each card =</span><span class="conf conf-high">High</span><span class="conf conf-medium">Medium</span><span class="conf conf-low">Low</span><span>confidence</span></div>
-    <div id="deck-days"></div>
-  </section>
-
-  <section id="calendar" class="wrap">
-    <div class="hs">
-      <div class="h-nyny"><h2><span class="o">Your</span>Weekend</h2><div class="sub">Events and monorail, same clock</div></div>
-      <p class="hint">Race sessions are already on in orange. Events you add sit side by side when they overlap, with monorail rides on the right.</p>
-    </div>
-    <div class="daytabs" id="daytabs"></div>
-    <div class="calkey"><span><i style="--c:var(--orange)"></i>Race sessions (always on)</span><span><i class="chk"></i>Grand Prix</span><span><i style="--c:var(--red)"></i>Events you add</span><span><i style="--c:var(--blue)"></i>Monorail rides</span></div>
-    <div class="cals">
-      <div class="cal-h"></div>
-      <div class="cal-h"><span class="dot" style="--c:var(--red)"></span>Events</div>
-      <div class="cal-h"><span class="dot" style="--c:var(--blue)"></span>Monorail</div>
-      <div class="allday" id="allday"></div>
-      <div class="cal-scroll" id="cal-scroll">
-        <div class="axis" id="axis"></div>
-        <div class="col" id="col-events"></div>
-        <div class="col mono" id="col-mono"></div>
-      </div>
     </div>
   </section>
 
@@ -484,7 +510,7 @@ section{scroll-margin-top:60px}
   <section id="monorail" class="wrap">
     <div class="hs">
       <div class="h-luxor"><h2 class="glow-blue">MONORAIL</h2><div class="sub">LAS VEGAS</div></div>
-      <p class="hint">Tap a ticket for details and to add a ride to your calendar.</p>
+      <p class="hint">Trains run 24/7 during race week. Tap a ticket for prices and where to buy.</p>
     </div>
     <div class="mono-grid">
       <div class="panel">
@@ -736,21 +762,49 @@ section{scroll-margin-top:60px}
     DAYS.forEach(d=>{
       const evs=EVENTS.filter(e=>e.days[d.key]).sort((a,b)=>{const x=sortKey(a.days[d.key]),y=sortKey(b.days[d.key]);return x-y||a.title.localeCompare(b.title)});
       if(!evs.length)return;
-      wrap.appendChild(el('div',{class:'day-label'},'<span class="dow '+d.neon+'">'+d.short+'</span><span class="date">'+d.label.toUpperCase()+' · '+d.md+' · '+evs.length+' CARDS</span>'));
+      wrap.appendChild(el('div',{class:'day-label'},'<span class="dow '+d.neon+'">'+d.short+'</span><span class="date">'+d.label.toUpperCase()+' · '+d.md+' · '+evs.length+(vOf(d.key)==='list'?' EVENTS':' CARDS')+'</span>'));
+      wrap.appendChild(viewTog(d.key));
+      if(vOf(d.key)==='list'){renderList(wrap,evs,d.key);return}
       const grid=el('div',{class:'deck'+(openDays.has(d.key)?'':' clamped'),'data-day':d.key});evs.forEach(ev=>grid.appendChild(makeCard(ev,d.key)));wrap.appendChild(grid);
       const more=el('button',{class:'see-more',type:'button','data-day':d.key});more.onclick=()=>{openDays.has(d.key)?openDays.delete(d.key):openDays.add(d.key);if(!openDays.has(d.key)){grid.classList.add('clamped');const lbl=grid.previousElementSibling;lbl.scrollIntoView({block:'start'})}else grid.classList.remove('clamped');clampDecks()};wrap.appendChild(more);
     });
     wrap.appendChild(el('div',{class:'day-label'},'<span class="dow glow-purple">Aces</span><span class="date">WILD CARDS · CLOSED, UNCONFIRMED OR 21+</span>'));
-    const g=el('div',{class:'deck'});ACES.forEach(ev=>g.appendChild(makeCard(ev,null)));wrap.appendChild(g);
+    wrap.appendChild(viewTog('aces'));
+    if(vOf('aces')==='list'){renderList(wrap,ACES,null)}else{const g=el('div',{class:'deck'});ACES.forEach(ev=>g.appendChild(makeCard(ev,null)));wrap.appendChild(g)}
     clampDecks();
   }
   const openDays=new Set();
+  const views=store.get('views',{});
+  const vOf=k=>views[k]||'cards';
+  function viewTog(k){
+    const t=el('div',{class:'viewtog',role:'group','aria-label':'View this day as'});
+    [['cards','▦ Cards'],['list','☰ List']].forEach(([v,l])=>{const b=el('button',{type:'button','aria-pressed':vOf(k)===v},l);b.onclick=()=>{if(vOf(k)===v)return;views[k]=v;store.set('views',views);renderDeck()};t.appendChild(b)});
+    return t;
+  }
+  function mkPromo(){return el('a',{class:'promo',href:'https://www.instagram.com/sneha.formula1/',target:'_blank',rel:'noopener'},'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.3" fill="currentColor"/></svg><span>While you&rsquo;re waiting in line, check out <b>@sneha.formula1</b> for F1 content</span>')}
+  function renderList(wrap,evs,dk){
+    const LIM=6,open=!dk||openDays.has(dk);
+    const ul=el('div',{class:'elist'});
+    evs.forEach((ev,i)=>{
+      const s=SUIT[ev.suit],h=dk?ev.days[dk]:null;
+      const time=!ev.days?'<b>Wild</b><i>card</i>':h===ALL?'<b>24/7</b><i>'+rangeMd(ev)+'</i>':h===TBA?'<b>TBA</b><i>'+rangeMd(ev)+'</i>':'<b>'+fmt(h[0])+'</b><i>to '+fmt(h[1])+'</i>';
+      const row=el('div',{class:'erow',role:'button',tabindex:'0','aria-label':ev.title+(dk?', '+dayOf(dk).label:'')});
+      row.innerHTML='<span class="et">'+time+'</span><span class="es '+s.c+'">'+s.s+'</span><span class="en"><b>'+esc(ev.title)+'</b><span>'+esc(ev.venue)+'</span><em>'+esc(ev.range)+'</em></span><span class="cdot conf-'+ev.conf.toLowerCase()+'" title="'+ev.conf+' confidence"></span>';
+      if(dk){const on=added.has(key(ev,dk));const cb=el('button',{class:'cal-btn'+(on?' on':''),'aria-label':(on?'Remove ':'Add ')+ev.title+' to calendar','aria-pressed':on},calIcon);cb.addEventListener('click',e=>{e.stopPropagation();toggleAdd(ev,dk)});row.appendChild(cb)}
+      const go=()=>openCard(ev,dk);row.addEventListener('click',go);row.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}});
+      if(!open&&i>=LIM)row.hidden=true;
+      ul.appendChild(row);
+      if(dk&&i===2)ul.appendChild(mkPromo());
+    });
+    wrap.appendChild(ul);
+    if(dk&&evs.length>LIM){const b=el('button',{class:'see-more',type:'button','aria-expanded':open},open?'Show less <span>▲</span>':'See all '+evs.length+' events <span>▼</span>');b.onclick=()=>{open?openDays.delete(dk):openDays.add(dk);renderDeck();if(open)document.querySelector('.see-more')&&ul.previousElementSibling.scrollIntoView({block:'start'})};wrap.appendChild(b)}
+  }
   function clampDecks(){
     document.querySelectorAll('.deck[data-day]').forEach(g=>{
       const cols=getComputedStyle(g).gridTemplateColumns.split(' ').filter(Boolean).length||2;
       const cards=[...g.children].filter(c=>c.classList.contains('card')),lim=cols*2,open=openDays.has(g.dataset.day);
       let promo=g.querySelector('.promo');
-      if(!promo){promo=el('a',{class:'promo',href:'https://www.instagram.com/sneha.formula1/',target:'_blank',rel:'noopener'},'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.3" fill="currentColor"/></svg><span>While you&rsquo;re waiting in line, check out <b>@sneha.formula1</b> for F1 content</span>')}
+      if(!promo)promo=mkPromo();
       const after=cards[Math.min(cols,cards.length)-1];if(after&&after.nextElementSibling!==promo)after.after(promo);
       cards.forEach((c,i)=>c.hidden=!open&&i>=lim);
       const b=g.nextElementSibling;
@@ -812,7 +866,7 @@ section{scroll-margin-top:60px}
       const prev=el('button',{class:'arrow',type:'button','aria-label':'Previous day'},'‹');prev.disabled=ix===0;prev.onclick=()=>go(DK[ix-1]);
       const next=el('button',{class:'arrow',type:'button','aria-label':'Next day'},'›');next.disabled=ix===DK.length-1;next.onclick=()=>go(DK[ix+1]);
       const row=el('div',{class:'tabrow',role:'tablist'});
-      DAYS.forEach(d=>{const b=el('button',{role:'tab','aria-selected':d.key===curDay,type:'button'},'<b>'+d.short+'</b> '+d.md);b.onclick=()=>go(d.key);row.appendChild(b)});
+      const pd=pairDays();DAYS.forEach(d=>{const b=el('button',{role:'tab','aria-selected':d.key===curDay,type:'button',class:(t.id==='daytabs'&&d.key!==curDay&&pd.includes(d.key))?'paired':''},'<b>'+d.short+'</b> '+d.md);b.onclick=()=>go(d.key);row.appendChild(b)});
       t.append(prev,row,next);
       const sel=row.querySelector('[aria-selected=true]');if(sel)row.scrollLeft=sel.offsetLeft-row.clientWidth/2+sel.clientWidth/2;
     });
@@ -831,28 +885,30 @@ section{scroll-margin-top:60px}
     b.style.top=top+'px';b.style.height=h+'px';
     const w=100/it.lanes;b.style.left='calc('+(it.lane*w)+'% + 3px)';b.style.width='calc('+w+'% - 6px)';b.style.right='auto';
   }
+  function pairDays(){const ix=DK.indexOf(curDay);const i=Math.min(ix,DK.length-2);return [DK[i],DK[i+1]]}
   function renderCal(){
     renderTabs();
-    const axis=$('#axis'),ce=$('#col-events'),cm=$('#col-mono'),ad=$('#allday');
-    [axis,ce,cm].forEach(x=>{x.innerHTML='';x.style.setProperty('--hours',HOURS)});ad.innerHTML='';
+    const axis=$('#axis');axis.innerHTML='';axis.style.setProperty('--hours',HOURS);
     for(let i=1;i<HOURS;i++){const h=(START_H+i)%24;const s=el('span',{},(h%12||12)+(h>=12?'p':'a'));s.style.top=(i*PX)+'px';axis.appendChild(s)}
-    const items=[];
-    RACE.filter(r=>r.day===curDay&&!r.nocal).forEach(r=>items.push({start:r.start,end:r.end,race:r}));
-    EVENTS.forEach(ev=>{const h=ev.days[curDay];if(!h||!added.has(key(ev,curDay)))return;
-      if(h===ALL||h===TBA){const c=el('button',{class:'chip',type:'button'},SUIT[ev.suit].s+' '+esc(ev.title)+' <i>'+(h===ALL?'24/7':'hrs TBA')+'</i>');c.onclick=()=>openCard(ev,curDay);ad.appendChild(c)}
-      else items.push({start:h[0],end:h[1],ev});
+    pairDays().forEach((dk,n)=>{
+      const sfx=n?'b':'a',col=$('#col-'+sfx),ad=$('#ad-'+sfx),hd=$('#ch-'+sfx),d=dayOf(dk);
+      col.innerHTML='';col.style.setProperty('--hours',HOURS);ad.innerHTML='';
+      hd.className='cal-h'+(dk===curDay?' cur':'');
+      hd.innerHTML='<span class="dot" style="--c:'+(RACE.some(r=>r.day===dk)?'var(--orange)':'var(--red)')+'"></span><span class="dd">'+d.short+' '+d.md+'</span>';
+      const items=[];
+      RACE.filter(r=>r.day===dk&&!r.nocal).forEach(r=>items.push({start:r.start,end:r.end,race:r}));
+      EVENTS.forEach(ev=>{const h=ev.days[dk];if(!h||!added.has(key(ev,dk)))return;
+        if(h===ALL||h===TBA){const c=el('button',{class:'chip',type:'button'},SUIT[ev.suit].s+' '+esc(ev.title)+' <i>'+(h===ALL?'24/7':'TBA')+'</i>');c.onclick=()=>openCard(ev,dk);ad.appendChild(c)}
+        else items.push({start:h[0],end:h[1],ev});
+      });
+      layout(items).forEach(it=>{
+        const b=el(it.ev?'button':'div',{class:'blk'+(it.race?' race'+(it.race.main?' main':''):''),type:'button'});
+        if(it.race)b.innerHTML='<b>'+esc(it.race.title)+'</b><span>'+it.race.series+' · '+fmt(it.race.start)+'</span>';
+        else{b.innerHTML='<b>'+SUIT[it.ev.suit].s+' '+esc(it.ev.title)+'</b><span>'+fmt(it.start)+' to '+fmt(it.end)+'</span>';b.onclick=()=>openCard(it.ev,dk)}
+        place(b,it);col.appendChild(b);
+      });
+      if(!items.length)col.appendChild(el('div',{class:'cal-empty'},'Tap the calendar icon on a card to add it here.'));
     });
-    layout(items).forEach(it=>{
-      const b=el(it.ev?'button':'div',{class:'blk'+(it.race?' race'+(it.race.main?' main':''):''),type:'button'});
-      if(it.race)b.innerHTML='<b>'+esc(it.race.title)+'</b><span>'+it.race.series+' · '+fmt(it.race.start)+'</span>';
-      else{b.innerHTML='<b>'+SUIT[it.ev.suit].s+' '+esc(it.ev.title)+'</b><span>'+fmt(it.start)+' to '+fmt(it.end)+'</span>';b.onclick=()=>openCard(it.ev,curDay)}
-      place(b,it);ce.appendChild(b);
-    });
-    if(!items.length)ce.appendChild(el('div',{class:'cal-empty'},'Tap the calendar icon on a card to add it here.'));
-    if(!ad.children.length)ad.appendChild(el('span',{class:'ad-empty'},'All-day and TBA-hour events you add show here'));
-    const rs=rides.filter(r=>r.day===curDay).map(r=>({start:r.start,end:r.end,r}));
-    layout(rs).forEach(it=>{const r=it.r;const b=el('div',{class:'blk mono'});b.innerHTML='<b>'+esc(r.from)+' → '+esc(r.to)+'</b><span>'+fmt(r.start)+'</span>';const x=el('button',{class:'x','aria-label':'Remove ride'},'×');x.onclick=()=>{rides=rides.filter(q=>q.id!==r.id);store.set('rides',rides);renderCal()};b.appendChild(x);place(b,it);cm.appendChild(b)});
-    if(!rs.length)cm.appendChild(el('div',{class:'cal-empty'},'Add a ride from a monorail ticket below.'));
   }
 
   // ---------- Strip map ----------
@@ -914,18 +970,8 @@ section{scroll-margin-top:60px}
     const dayOpts=DAYS.map(d=>'<option value="'+d.key+'"'+(d.key===curDay?' selected':'')+'>'+d.short+' '+d.md+'</option>').join('');
     p.innerHTML='<div><div class="kick glow-blue">Monorail ticket</div><h3>'+t.name+'</h3></div>'+
       '<dl class="logi"><dt>Price</dt><dd><b>'+t.price+'</b> online eTicket · '+t.paper+' paper at stations</dd><dt>Good for</dt><dd>'+t.sub+'. Clock starts at your first scan.</dd><dt>Buy at</dt><dd>tix.lvmonorail.com (cheaper), or machines at every station</dd><dt>Best for</dt><dd>'+t.best+'</dd><dt>Source</dt><dd><a class="src" href="https://www.lvmonorail.com/ticket-information/" target="_blank" rel="noopener">Las Vegas Monorail ↗</a> '+confBadge('High')+'</dd></dl>'+
-      '<div style="border-top:1px solid var(--line);padding-top:14px;display:grid;gap:10px"><b style="font-size:14px">Add a ride to your monorail calendar</b>'+
-      '<div class="row2"><label for="r-day">Day<select id="r-day">'+dayOpts+'</select></label><label for="r-time">Train time<input id="r-time" type="time" value="18:00"></label></div>'+
-      '<div class="row2"><label for="r-from">From<select id="r-from">'+opts+'</select></label><label for="r-to">To<select id="r-to">'+opts.replace('<option>Harrah','<option selected>Harrah')+'</select></label></div>'+
-      '<button class="btn blue" type="button" id="r-add">Add to calendar</button></div>';
+      '';
     overlay(p);
-    p.querySelector('#r-add').onclick=()=>{
-      const st=p.querySelector('#r-time').value||'18:00';const [h,m]=st.split(':').map(Number);const em=h*60+m+20;
-      const end=String(Math.floor(em/60)%24).padStart(2,'0')+':'+String(em%60).padStart(2,'0');
-      const r={id:Date.now(),day:p.querySelector('#r-day').value,start:st,end:end,from:p.querySelector('#r-from').value,to:p.querySelector('#r-to').value};
-      rides.push(r);store.set('rides',rides);curDay=r.day;closeLayer();renderCal();renderMap();toast('Monorail ride added');
-      document.getElementById('calendar').scrollIntoView({behavior:'auto'});
-    };
   }
 
   // ---------- Food ----------
