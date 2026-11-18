@@ -378,6 +378,11 @@ section{scroll-margin-top:60px}
 .rblock.acad .rt{background:#2c1d25;color:#dea6c2}.rblock.acad .rn em{color:#c592ab}
 .rblock.main{border-color:#6a5438;box-shadow:none}
 .race-foot a.src{color:#c9a477!important}
+
+.promo{grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:10px;padding:10px 14px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);color:var(--mute);font-size:13px;text-align:center;text-decoration:none;line-height:1.35}
+.promo svg{width:18px;height:18px;flex:none;color:#d98bb8}
+.promo b{color:var(--fg);font-weight:600}
+.promo:hover b{color:#d98bb8;text-decoration:underline}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}html{scroll-behavior:auto}}
 </style>
 </head>
@@ -495,7 +500,7 @@ section{scroll-margin-top:60px}
 
   <section id="food" class="wrap">
     <div class="hs">
-      <div class="h-beau"><h2 style="color:#7fd18b;text-shadow:0 0 8px rgba(127,209,139,.6)">Vegetarian Eats</h2><div class="sub">Sorted by hotel · all vegetarian</div></div>
+      <div class="h-beau"><h2 style="color:#7fd18b;text-shadow:0 0 8px rgba(127,209,139,.6)">Vegetarian Eats</h2><div class="sub">Sorted by hotel · Veg and Non-Veg Options</div></div>
       <p class="hint">Tap a tile for the dish, hours and which events it's near.</p>
     </div>
     <div class="food" id="food-grid"></div>
@@ -743,7 +748,10 @@ section{scroll-margin-top:60px}
   function clampDecks(){
     document.querySelectorAll('.deck[data-day]').forEach(g=>{
       const cols=getComputedStyle(g).gridTemplateColumns.split(' ').filter(Boolean).length||2;
-      const cards=[...g.children],lim=cols*2,open=openDays.has(g.dataset.day);
+      const cards=[...g.children].filter(c=>c.classList.contains('card')),lim=cols*2,open=openDays.has(g.dataset.day);
+      let promo=g.querySelector('.promo');
+      if(!promo){promo=el('a',{class:'promo',href:'https://www.instagram.com/sneha.formula1/',target:'_blank',rel:'noopener'},'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.3" fill="currentColor"/></svg><span>While you&rsquo;re waiting in line, check out <b>@sneha.formula1</b> for F1 content</span>')}
+      const after=cards[Math.min(cols,cards.length)-1];if(after&&after.nextElementSibling!==promo)after.after(promo);
       cards.forEach((c,i)=>c.hidden=!open&&i>=lim);
       const b=g.nextElementSibling;
       if(cards.length<=lim){b.hidden=true;return}
